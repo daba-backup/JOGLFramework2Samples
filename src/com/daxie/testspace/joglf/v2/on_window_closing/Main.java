@@ -12,6 +12,6 @@ public class Main {
 	public Main() {
 		GLFront.Setup(GLVersion.GL4);
 		
-		new ShowMessageOnClose();
+		new ShowMessageOnCloseWindow();
 	}
 }
