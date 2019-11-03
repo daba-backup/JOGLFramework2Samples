@@ -47,9 +47,9 @@ public class SingleSpotlightTestWindow extends JOGLFWindow{
 		
 		//Create a program.
 		GLShaderFunctions.CreateProgram(
-				"spotlight", 
-				"./Data/Shader/330/spotlight_phong/vshader.glsl",
-				"./Data/Shader/330/spotlight_phong/fshader.glsl");
+			"spotlight", 
+			"./Data/Shader/330/spotlight_phong/vshader.glsl",
+			"./Data/Shader/330/spotlight_phong/fshader.glsl");
 		
 		//Camera info is automatically transmitted to all registered programs.
 		CameraFront.AddUserShader("spotlight");
