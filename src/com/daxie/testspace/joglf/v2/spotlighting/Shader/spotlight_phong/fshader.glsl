@@ -36,7 +36,6 @@ void SetLighting(){
 
     if(cos_alpha<=cos_half_phi){
         fs_out_color=ambient_color;
-        return;
     }
     else{
         if(cos_alpha>cos_half_theta){
@@ -45,15 +44,15 @@ void SetLighting(){
         else{
             attenuation*=pow((cos_alpha-cos_half_phi)/(cos_half_theta-cos_half_phi),falloff);
         }
+
+        vec3 half_le=normalize(camera_target+light_direction);
+        float specular=pow(clamp(dot(vs_out_normal,half_le),0.0,1.0),2.0);
+
+        vec4 specular_color=vec4(specular*specular_power);
+
+        fs_out_color=ambient_color+diffuse_color*attenuation+specular_color;
+        fs_out_color.a=1.0;
     }
-
-    vec3 half_le=normalize(camera_target+light_direction);
-    float specular=pow(clamp(dot(vs_out_normal,half_le),0.0,1.0),2.0);
-
-    vec4 specular_color=vec4(specular*specular_power);
-
-    fs_out_color=ambient_color+diffuse_color*attenuation+specular_color;
-    fs_out_color.a=1.0;
 }
 void ApplyTexture(){
     fs_out_color=fs_out_color*texture(texture_sampler,vs_out_uv);
