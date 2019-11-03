@@ -1,3 +1,5 @@
 [spotlight_phong]
 https://qiita.com/uechoco@github/items/be3b66c9043bcf2174f7
 
+[three_spotlights_phong]
+https://qiita.com/uechoco@github/items/609bd631ce9edbfd78f8

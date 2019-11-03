@@ -20,7 +20,6 @@ public class SingleSpotlightTestWindow extends JOGLFWindow{
 	private float phi;
 	private float theta;
 	private float falloff;
-	
 	private ColorU8 diffuse_color;
 	private ColorU8 ambient_color;
 	private float specular_power;
@@ -39,12 +38,9 @@ public class SingleSpotlightTestWindow extends JOGLFWindow{
 		light_direction=VectorFunctions.VNorm(light_direction);
 		
 		light_attenuation=0.08f;
-		
 		phi=MathFunctions.DegToRad(45.0f);
 		theta=MathFunctions.DegToRad(10.0f);
-		
 		falloff=1.0f;
-		
 		diffuse_color=ColorU8Functions.GetColorU8(1.0f, 1.0f, 1.0f, 1.0f);
 		ambient_color=ColorU8Functions.GetColorU8(0.1f, 0.1f, 0.1f, 1.0f);
 		specular_power=0.1f;
@@ -59,8 +55,8 @@ public class SingleSpotlightTestWindow extends JOGLFWindow{
 		CameraFront.AddUserShader("spotlight");
 		
 		model_handle=Model3D.LoadModel("./Data/Model/OBJ/Plane/plane.obj");
-		Model3D.RemoveAllShaders(model_handle);//Detach the default program.
-		Model3D.AddShader(model_handle, "spotlight");//Attach a new program.
+		Model3D.RemoveAllShaders(model_handle);//Remove the default program.
+		Model3D.AddShader(model_handle, "spotlight");//Add a new program.
 		
 		program=new ShaderProgram("spotlight");
 	}
@@ -76,7 +72,6 @@ public class SingleSpotlightTestWindow extends JOGLFWindow{
 		program.SetUniform("phi", phi);
 		program.SetUniform("theta", theta);
 		program.SetUniform("falloff", falloff);
-		
 		program.SetUniform("diffuse_color", diffuse_color);
 		program.SetUniform("ambient_color", ambient_color);
 		program.SetUniform("specular_color", specular_power);

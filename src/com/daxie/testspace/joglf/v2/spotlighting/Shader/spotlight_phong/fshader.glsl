@@ -15,10 +15,8 @@ uniform float light_attenuation;
 uniform float phi;
 uniform float theta;
 uniform float falloff;
-
 uniform vec4 diffuse_color;
 uniform vec4 ambient_color;
-
 uniform float specular_power;
 
 out vec4 fs_out_color;
