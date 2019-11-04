@@ -66,7 +66,7 @@ CameraFront.AddUserShader("spotlight");
 ## Set uniform variables
 
 Transmission of uniform data usually takes place in *Update()*.
-See [SingleSpotlightTestWindow.java](../SingleSpotlightTestWindow.java) for a complete example that actually works.
+See [SingleSpotlightTestWindow.java](./SingleSpotlightTestWindow.java) for a complete example that actually works.
 
 ```Java
 private ShaderProgram program=new ShaderProgram("spotlight");
