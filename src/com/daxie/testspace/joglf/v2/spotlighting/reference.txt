@@ -1,5 +1,8 @@
-[spotlight_phong]
+[spotlight_phong (shader)]
 https://qiita.com/uechoco@github/items/be3b66c9043bcf2174f7
 
-[three_spotlights_phong]
+[three_spotlights_phong (shader)]
 https://qiita.com/uechoco@github/items/609bd631ce9edbfd78f8
+
+[Texture]
+https://free-texture.net/
