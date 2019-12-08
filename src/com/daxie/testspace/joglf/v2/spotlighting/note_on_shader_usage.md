@@ -1,4 +1,4 @@
-# Note for shader usage
+# Note on shader usage
 
 ## In variables
 
