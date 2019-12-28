@@ -36,6 +36,12 @@ public class Draw2DFilledCirclesWindow extends JOGLFWindow{
 	}
 	
 	@Override
+	protected void Reshape(int x, int y, int width, int height) {
+		drawer.SetWindowSize(width, height);
+		drawer.UpdateBuffers();
+	}
+	
+	@Override
 	protected void Draw() {
 		drawer.Draw();
 	}
