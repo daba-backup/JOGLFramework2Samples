@@ -1,6 +1,6 @@
 package com.daxie.testspace.joglf.v2.sound;
 
-import com.daxie.joglf.al.player.MP3Player;
+import com.daxie.joglf.al.player.mp3.MP3Player;
 import com.daxie.joglf.gl.input.keyboard.KeyboardEnum;
 import com.daxie.joglf.gl.window.JOGLFWindow;
 
