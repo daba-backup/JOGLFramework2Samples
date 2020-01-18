@@ -2,10 +2,10 @@ package com.daxie.testspace.joglf.v2.input;
 
 import com.daxie.basis.coloru8.ColorU8Functions;
 import com.daxie.basis.vector.VectorFunctions;
+import com.daxie.joglf.gl.draw.GLDrawFunctions3D;
 import com.daxie.joglf.gl.input.mouse.MouseEnum;
 import com.daxie.joglf.gl.text.TextMgr;
 import com.daxie.joglf.gl.window.JOGLFWindow;
-import com.daxie.joglf.gl.wrapper.GLDrawFunctions3D;
 
 public class MouseTestWindow extends JOGLFWindow{
 	public MouseTestWindow() {

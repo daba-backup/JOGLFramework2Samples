@@ -3,11 +3,11 @@ package com.daxie.testspace.joglf.v2.coordinate_conversion;
 import com.daxie.basis.coloru8.ColorU8Functions;
 import com.daxie.basis.vector.Vector;
 import com.daxie.basis.vector.VectorFunctions;
+import com.daxie.joglf.gl.draw.GLDrawFunctions2D;
+import com.daxie.joglf.gl.draw.GLDrawFunctions3D;
 import com.daxie.joglf.gl.front.CameraFront;
 import com.daxie.joglf.gl.tool.CoordinateFunctions;
 import com.daxie.joglf.gl.window.JOGLFWindow;
-import com.daxie.joglf.gl.wrapper.GLDrawFunctions2D;
-import com.daxie.joglf.gl.wrapper.GLDrawFunctions3D;
 
 public class CoordinateConversionTestWindow extends JOGLFWindow{
 	@Override

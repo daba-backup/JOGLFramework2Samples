@@ -2,11 +2,10 @@ package com.daxie.testspace.joglf.v2.tinter;
 
 import com.daxie.basis.coloru8.ColorU8Functions;
 import com.daxie.basis.vector.VectorFunctions;
+import com.daxie.joglf.gl.draw.GLDrawFunctions3D;
 import com.daxie.joglf.gl.front.TinterFront;
 import com.daxie.joglf.gl.window.JOGLFWindow;
-import com.daxie.joglf.gl.wrapper.GLDrawFunctions3D;
 
-//This window realizes a kind of fade-in effect.
 public class FadeInTestWindow extends JOGLFWindow{
 	public FadeInTestWindow() {
 		

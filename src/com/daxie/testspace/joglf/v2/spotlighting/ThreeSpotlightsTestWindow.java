@@ -43,11 +43,11 @@ public class ThreeSpotlightsTestWindow extends JOGLFWindow{
 			"./Data/Shader/330/three_spotlights_phong/fshader.glsl");
 		
 		//Camera info is automatically transmitted to all registered programs.
-		CameraFront.AddUserShader("spotlight");
+		CameraFront.AddProgram("spotlight");
 		
 		model_handle=Model3D.LoadModel("./Data/Model/OBJ/Plane/plane.obj");
-		Model3D.RemoveAllShaders(model_handle);//Remove the default program.
-		Model3D.AddShader(model_handle, "spotlight");//Add a new program.
+		Model3D.RemoveAllPrograms(model_handle);
+		Model3D.AddProgram(model_handle, "spotlight");
 		
 		program=new ShaderProgram("spotlight");
 	}

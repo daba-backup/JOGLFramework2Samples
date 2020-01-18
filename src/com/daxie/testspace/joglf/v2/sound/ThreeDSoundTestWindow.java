@@ -5,9 +5,9 @@ import com.daxie.basis.vector.Vector;
 import com.daxie.basis.vector.VectorFunctions;
 import com.daxie.joglf.al.front.ALFront;
 import com.daxie.joglf.al.sound.Sound3D;
+import com.daxie.joglf.gl.draw.GLDrawFunctions3D;
 import com.daxie.joglf.gl.front.CameraFront;
 import com.daxie.joglf.gl.window.JOGLFWindow;
-import com.daxie.joglf.gl.wrapper.GLDrawFunctions3D;
 
 public class ThreeDSoundTestWindow extends JOGLFWindow{
 	public ThreeDSoundTestWindow() {
