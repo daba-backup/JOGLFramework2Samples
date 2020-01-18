@@ -16,12 +16,12 @@ layout(location=2) in vec3 vs_in_normal;
 |    vs_in_uv    |    vertex uv    |
 |  vs_in_normal  |  vertex normal  |
 
-Use *Model3D.AddShader()* to add a program to a model.
+Use *Model3D.AddProgram()* to add a program to a model.
 Below is an example to register a program for spotlighting.
 
 ```java
-Model3D.RemoveAllShaders(model_handle);//Remove the default program.
-Model3D.AddShader(model_handle, "spotlight");//Add a new program.
+Model3D.RemoveAllPrograms(model_handle);//Remove all programs including the default one.
+Model3D.AddProgram(model_handle, "spotlight");//Add a new program.
 ```
 
 The "spotlight" program has to be created beforehand.
@@ -56,16 +56,16 @@ uniform float camera_far;
 |     camera_near     |             near value of the camera             |
 |     camera_far      |             far value of the camera              |
 
-Use CameraFront.AddUserShader() to add a shader to the camera.
+Use *CameraFront.AddProgram()* to add a shader to the camera.
 Below is an example to register a program for spotlighting.
 
 ```Java
-CameraFront.AddUserShader("spotlight");
+CameraFront.AddProgram("spotlight");
 ```
 
 ## Set uniform variables
 
-Transmission of uniform data usually takes place in *Update()*.
+Transmission of uniform variables usually takes place in *Update()*.
 See [SingleSpotlightTestWindow.java](./SingleSpotlightTestWindow.java) for a complete example that actually works.
 
 ```Java
