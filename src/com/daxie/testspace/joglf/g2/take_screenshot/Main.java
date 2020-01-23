@@ -1,4 +1,4 @@
-package com.daxie.testspace.joglf.g2.shadow_mapping;
+package com.daxie.testspace.joglf.g2.take_screenshot;
 
 //JOGLFramework version:6.0.0
 
@@ -14,7 +14,7 @@ public class Main {
 		LogFile.SetLogLevelFlags(LogFile.LOG_LEVEL_ALL);
 		GLFront.Setup(GLVersion.GL4);
 		
-		ShadowMappingTestWindow window=new ShadowMappingTestWindow();
-		window.SetTitle("Shadow Mapping");
+		TakeScreenshotTestWindow window=new TakeScreenshotTestWindow();
+		window.SetTitle("Take Screenshot");
 	}
 }

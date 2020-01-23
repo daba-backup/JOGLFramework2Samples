@@ -96,8 +96,8 @@ public class DepthTextureTestWindow extends JOGLFWindow{
 	@Override
 	protected void Draw() {
 		depth_program.Enable();
-		GLWrapper.glViewport(0, 0, SHADOW_WIDTH, SHADOW_HEIGHT);
 		GLWrapper.glBindFramebuffer(GL4.GL_FRAMEBUFFER, fbo_id);
+		GLWrapper.glViewport(0, 0, SHADOW_WIDTH, SHADOW_HEIGHT);
 		GLWrapper.glClear(GL4.GL_DEPTH_BUFFER_BIT);
 		Model3D.TransferModel(model_handle);
 		GLWrapper.glBindFramebuffer(GL4.GL_FRAMEBUFFER, 0);
