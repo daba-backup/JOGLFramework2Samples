@@ -39,7 +39,7 @@ void SetUVs(){
 }
 void SetLighting(){
     vec3 camera_direction=normalize(camera_target-camera_position);
-    vec3 half_le=normalize(camera_direction-light_direction);
+    vec3 half_le=-normalize(camera_direction+light_direction);
 
     float diffuse=clamp(dot(vs_in_normal,-light_direction),0.0,1.0);
     float specular=pow(clamp(dot(vs_in_normal,half_le),0.0,1.0),2.0);
