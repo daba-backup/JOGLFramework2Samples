@@ -1,8 +1,9 @@
-package com.daxie.testspace.joglf.g2.take_screenshot;
+package com.daxie.testspace.joglf.g2.mandelbrot_set;
 
 //JOGLFramework version:6.0.0
 
 import com.daxie.joglf.gl.front.GLFront;
+import com.daxie.joglf.gl.window.JOGLFWindow;
 import com.daxie.joglf.gl.wrapper.GLVersion;
 import com.daxie.log.LogFile;
 
@@ -14,7 +15,8 @@ public class Main {
 		LogFile.SetLogLevelFlags(LogFile.LOG_LEVEL_ALL);
 		GLFront.Setup(GLVersion.GL4);
 		
-		TakeScreenshotTestWindow window=new TakeScreenshotTestWindow();
+		JOGLFWindow window=new DrawMandelbrotSetWindow();
+		window.SetTitle("Mandelbrot Set");
 		window.SetExitProcessWhenDestroyed();
 	}
 }
