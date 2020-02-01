@@ -68,7 +68,7 @@ public class TakeScreenshotTestWindow extends JOGLFWindow{
 		GLWrapper.glBindFramebuffer(GL4.GL_FRAMEBUFFER, 0);
 		
 		model_handle=Model3D.LoadModel("./Data/Model/BD1/map2/temp.bd1");
-		Model3D.SetModelScale(model_handle, VectorFunctions.VGet(0.1f, 0.1f, 0.1f));
+		Model3D.RescaleModel(model_handle, VectorFunctions.VGet(0.1f, 0.1f, 0.1f));
 	}
 	
 	@Override

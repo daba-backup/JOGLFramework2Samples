@@ -1,9 +1,9 @@
 package com.daxie.testspace.joglf.g2.mandelbrot_set;
 
+import com.daxie.joglf.gl.draw.GLDrawFunctions2D;
 import com.daxie.joglf.gl.input.keyboard.KeyboardEnum;
 import com.daxie.joglf.gl.shader.GLShaderFunctions;
 import com.daxie.joglf.gl.shader.ShaderProgram;
-import com.daxie.joglf.gl.texture.TextureMgr;
 import com.daxie.joglf.gl.window.JOGLFWindow;
 
 public class DrawMandelbrotSetWindow extends JOGLFWindow{
@@ -73,6 +73,6 @@ public class DrawMandelbrotSetWindow extends JOGLFWindow{
 	@Override
 	protected void Draw() {
 		program.Enable();
-		TextureMgr.TransferTexture();
+		GLDrawFunctions2D.TransferFullscreenQuad();
 	}
 }

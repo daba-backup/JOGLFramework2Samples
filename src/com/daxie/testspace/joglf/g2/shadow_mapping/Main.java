@@ -1,6 +1,6 @@
 package com.daxie.testspace.joglf.g2.shadow_mapping;
 
-//JOGLFramework version:6.0.0
+//JOGLFramework version:7.0.0
 
 import com.daxie.joglf.gl.front.GLFront;
 import com.daxie.joglf.gl.wrapper.GLVersion;

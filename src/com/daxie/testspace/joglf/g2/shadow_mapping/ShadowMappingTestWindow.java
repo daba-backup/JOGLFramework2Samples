@@ -75,7 +75,7 @@ public class ShadowMappingTestWindow extends JOGLFWindow{
 		
 		//Load a model.
 		model_handle=Model3D.LoadModel("./Data/Model/OBJ/Plane/plane.obj");
-		Model3D.SetModelScale(model_handle, VectorFunctions.VGet(0.1f, 0.1f, 0.1f));
+		Model3D.RescaleModel(model_handle, VectorFunctions.VGet(0.1f, 0.1f, 0.1f));
 		Model3D.RemoveAllPrograms(model_handle);
 		Model3D.AddProgram(model_handle, "draw");
 		

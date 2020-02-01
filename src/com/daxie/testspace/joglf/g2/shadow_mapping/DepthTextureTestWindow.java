@@ -6,10 +6,10 @@ import com.daxie.basis.matrix.Matrix;
 import com.daxie.basis.matrix.MatrixFunctions;
 import com.daxie.basis.vector.Vector;
 import com.daxie.basis.vector.VectorFunctions;
+import com.daxie.joglf.gl.draw.GLDrawFunctions2D;
 import com.daxie.joglf.gl.model.Model3D;
 import com.daxie.joglf.gl.shader.GLShaderFunctions;
 import com.daxie.joglf.gl.shader.ShaderProgram;
-import com.daxie.joglf.gl.texture.TextureMgr;
 import com.daxie.joglf.gl.tool.matrix.ProjectionMatrixFunctions;
 import com.daxie.joglf.gl.tool.matrix.TransformationMatrixFunctions;
 import com.daxie.joglf.gl.window.JOGLFWindow;
@@ -73,7 +73,7 @@ public class DepthTextureTestWindow extends JOGLFWindow{
 		
 		//Load a model.
 		model_handle=Model3D.LoadModel("./Data/Model/OBJ/Plane/plane.obj");
-		Model3D.SetModelScale(model_handle, VectorFunctions.VGet(0.1f, 0.1f, 0.1f));
+		Model3D.RescaleModel(model_handle, VectorFunctions.VGet(0.1f, 0.1f, 0.1f));
 		Model3D.RemoveAllPrograms(model_handle);
 	}
 	
@@ -108,7 +108,7 @@ public class DepthTextureTestWindow extends JOGLFWindow{
 		GLWrapper.glActiveTexture(GL4.GL_TEXTURE0);
 		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, texture_id);
 		draw_program.SetUniform("texture_sampler", 0);
-		TextureMgr.TransferTexture();
+		GLDrawFunctions2D.TransferFullscreenQuad();
 		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, 0);
 		draw_program.Disable();
 	}
