@@ -19,7 +19,7 @@ import com.jogamp.opengl.GL4;
 public class TakeScreenshotTestWindow extends JOGLFWindow{
 	private int fbo_id;
 	private int texture_id;
-	private int renderer_buffer_id;
+	private int renderbuffer_id;
 	
 	private int model_handle;
 	
@@ -30,14 +30,14 @@ public class TakeScreenshotTestWindow extends JOGLFWindow{
 	protected void Init() {
 		IntBuffer fbo_ids=Buffers.newDirectIntBuffer(1);
 		IntBuffer texture_ids=Buffers.newDirectIntBuffer(1);
-		IntBuffer render_buffer_ids=Buffers.newDirectIntBuffer(1);
+		IntBuffer renderbuffer_ids=Buffers.newDirectIntBuffer(1);
 		
 		GLWrapper.glGenFramebuffers(1, fbo_ids);
 		GLWrapper.glGenTextures(1, texture_ids);
-		GLWrapper.glGenRenderbuffers(1, render_buffer_ids);
+		GLWrapper.glGenRenderbuffers(1, renderbuffer_ids);
 		fbo_id=fbo_ids.get(0);
 		texture_id=texture_ids.get(0);
-		renderer_buffer_id=render_buffer_ids.get(0);
+		renderbuffer_id=renderbuffer_ids.get(0);
 		
 		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, texture_id);
 		GLWrapper.glTexImage2D(
@@ -49,7 +49,7 @@ public class TakeScreenshotTestWindow extends JOGLFWindow{
 		GLWrapper.glTexParameteri(GL4.GL_TEXTURE_2D, GL4.GL_TEXTURE_WRAP_T, GL4.GL_CLAMP_TO_EDGE);
 		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, 0);
 		
-		GLWrapper.glBindRenderbuffer(GL4.GL_RENDERBUFFER, renderer_buffer_id);
+		GLWrapper.glBindRenderbuffer(GL4.GL_RENDERBUFFER, renderbuffer_id);
 		GLWrapper.glRenderbufferStorage(
 				GL4.GL_RENDERBUFFER, GL4.GL_DEPTH_COMPONENT, 
 				TEXTURE_WIDTH,TEXTURE_HEIGHT);
@@ -61,7 +61,7 @@ public class TakeScreenshotTestWindow extends JOGLFWindow{
 				GL4.GL_TEXTURE_2D, texture_id, 0);
 		GLWrapper.glFramebufferRenderbuffer(
 				GL4.GL_FRAMEBUFFER, GL4.GL_DEPTH_ATTACHMENT, 
-				GL4.GL_RENDERBUFFER, renderer_buffer_id);
+				GL4.GL_RENDERBUFFER, renderbuffer_id);
 		if(GLWrapper.glCheckFramebufferStatus(GL4.GL_FRAMEBUFFER)!=GL4.GL_FRAMEBUFFER_COMPLETE) {
 			System.out.println("Error:Incomplete framebuffer");
 		}
