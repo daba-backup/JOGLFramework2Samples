@@ -80,7 +80,6 @@ public class JBulletTestWindow2 extends JOGLFWindow{
 		fall_base_model_handle=Model3D.LoadModel("./Data/Model/BD1/Cube/cube.bd1");
 		Model3D.RescaleModel(fall_base_model_handle, VectorFunctions.VGet(MODEL_SCALE, MODEL_SCALE, MODEL_SCALE));
 		
-		//Disable specular and diffuse lighting.
 		LightingFront.SetSpecularPower(0.0f);
 		LightingFront.SetDiffusePower(0.0f);
 		LightingFront.SetAmbientColor(ColorU8Functions.GetColorU8(1.0f, 1.0f, 1.0f, 1.0f));
