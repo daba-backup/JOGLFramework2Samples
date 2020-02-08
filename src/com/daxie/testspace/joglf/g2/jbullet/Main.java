@@ -1,6 +1,6 @@
 package com.daxie.testspace.joglf.g2.jbullet;
 
-//JOGLFramework version:8.1.0
+//JOGLFramework version:8.1.1
 
 import com.daxie.joglf.gl.front.GLFront;
 import com.daxie.joglf.gl.window.JOGLFWindow;
@@ -19,7 +19,7 @@ public class Main {
 		final int FPS=30;
 		WindowCommonInfoStock.SetFPS(FPS);
 		
-		JOGLFWindow window=new JBulletTestWindow2(FPS);
+		JOGLFWindow window=new JBulletTestWindow3(FPS);
 		window.SetTitle("JBullet");
 		window.SetExitProcessWhenDestroyed();
 	}
