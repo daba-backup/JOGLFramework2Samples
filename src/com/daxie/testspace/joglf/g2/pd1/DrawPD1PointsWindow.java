@@ -43,6 +43,7 @@ public class DrawPD1PointsWindow extends JOGLFWindow{
 			
 			return;
 		}
+		pd1_manipulator.InvertZ();
 		pd1_manipulator.Rescale(VectorFunctions.VGet(MODEL_SCALE, MODEL_SCALE, MODEL_SCALE));
 		
 		List<PD1Point> points=pd1_manipulator.GetPoints();
