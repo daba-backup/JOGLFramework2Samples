@@ -32,12 +32,12 @@
 			<artifactId>joglframework-al</artifactId>
 			<version>8.1.1</version>
 		</dependency>
-		
+
 		<dependency>
-            <groupId>com.github.dabasan</groupId>
-            <artifactId>xopsmanipulator-pd1</artifactId>
-            <version>6.0.0</version>
-        </dependency>
+			<groupId>com.github.dabasan</groupId>
+			<artifactId>xopsmanipulator-pd1</artifactId>
+			<version>6.0.0</version>
+		</dependency>
 
 		<dependency>
 			<groupId>cz.advel.jbullet</groupId>
