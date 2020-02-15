@@ -1,7 +1,5 @@
 package com.daxie.testspace.joglf.g2.first_person;
 
-//JOGLFramework version:8.1.2
-
 import com.daxie.joglf.gl.front.GLFront;
 import com.daxie.joglf.gl.window.JOGLFWindow;
 import com.daxie.joglf.gl.window.WindowCommonInfoStock;

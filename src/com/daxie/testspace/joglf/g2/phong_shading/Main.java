@@ -1,7 +1,5 @@
 package com.daxie.testspace.joglf.g2.phong_shading;
 
-//JOGLFramework version:8.2.0
-
 import com.daxie.joglf.gl.front.GLFront;
 import com.daxie.joglf.gl.window.JOGLFWindow;
 import com.daxie.joglf.gl.wrapper.GLVersion;

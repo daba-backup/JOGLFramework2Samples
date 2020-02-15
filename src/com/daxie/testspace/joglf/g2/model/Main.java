@@ -5,8 +5,6 @@ import com.daxie.joglf.gl.window.JOGLFWindow;
 import com.daxie.joglf.gl.wrapper.GLVersion;
 import com.daxie.log.LogWriter;
 
-//JOGLFramework version:8.1.0
-
 public class Main {
 	public static void main(String[] args) {
 		new Main();

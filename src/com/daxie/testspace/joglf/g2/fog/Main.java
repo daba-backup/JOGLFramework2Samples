@@ -1,7 +1,5 @@
 package com.daxie.testspace.joglf.g2.fog;
 
-//JOGLFramework version:8.1.1
-
 import com.daxie.joglf.gl.front.GLFront;
 import com.daxie.joglf.gl.window.JOGLFWindow;
 import com.daxie.joglf.gl.wrapper.GLVersion;
