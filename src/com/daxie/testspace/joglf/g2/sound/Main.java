@@ -2,6 +2,7 @@ package com.daxie.testspace.joglf.g2.sound;
 
 import com.daxie.joglf.gl.front.GLFront;
 import com.daxie.joglf.gl.wrapper.GLVersion;
+import com.daxie.log.LogWriter;
 
 //JOGLFramework version:6.0.0
 
@@ -10,6 +11,7 @@ public class Main {
 		new Main();
 	}
 	public Main() {
+		LogWriter.SetLogLevelFlags(LogWriter.LOG_LEVEL_ALL);
 		GLFront.Setup(GLVersion.GL4);
 		
 		new ThreeDSoundTestWindow().SetExitProcessWhenDestroyed();

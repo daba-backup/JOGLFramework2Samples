@@ -1,6 +1,6 @@
 package com.daxie.testspace.joglf.g2.pd1;
 
-import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 
 import com.daxie.basis.coloru8.ColorU8Functions;
@@ -37,7 +37,7 @@ public class DrawPD1PointsWindow extends JOGLFWindow{
 		try {
 			pd1_manipulator=new PD1Manipulator("./Data/Model/BD1/map2/ext.pd1");
 		}
-		catch(FileNotFoundException e) {
+		catch(IOException e) {
 			e.printStackTrace();
 			this.CloseWindow();
 			
