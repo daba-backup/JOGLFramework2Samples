@@ -3,6 +3,7 @@ package com.daxie.testspace.joglf.g2.shadow_mapping;
 //JOGLFramework version:7.0.0
 
 import com.daxie.joglf.gl.front.GLFront;
+import com.daxie.joglf.gl.window.JOGLFWindow;
 import com.daxie.joglf.gl.wrapper.GLVersion;
 import com.daxie.log.LogWriter;
 
@@ -14,7 +15,7 @@ public class Main {
 		LogWriter.SetLogLevelFlags(LogWriter.LOG_LEVEL_ALL);
 		GLFront.Setup(GLVersion.GL4);
 		
-		ShadowMappingTestWindow window=new ShadowMappingTestWindow();
-		window.SetTitle("Shadow Mapping");
+		JOGLFWindow window=new ShadowMappingTestWindow();
+		window.SetExitProcessWhenDestroyed();
 	}
 }
