@@ -2,7 +2,7 @@
 
 ## In variables
 
-The following three variables are available if you register your program with a model.
+The following three variables are available after you register your program with a model.
 
 ```GLSL
 layout(location=0) in vec3 vs_in_position;
@@ -36,7 +36,7 @@ GLShaderFunctions.CreateProgram(
 
 ## Uniform variables
 
-The following six variables are available if you register your shader with CameraFront.
+The following six variables are available after you register your program with CameraFront.
 
 ```GLSL
 uniform vec3 camera_position;
@@ -47,16 +47,16 @@ uniform float camera_near;
 uniform float camera_far;
 ```
 
-|      Variable       |                   Explanation                    |
-| :-----------------: | :----------------------------------------------: |
-|   camera_position   |              position of the camera              |
-|    camera_target    |      normalized target vector of the camera      |
-|     projection      | projection matrix (such as a perspective matrix) |
-| view_transformation |            view transformation matrix            |
-|     camera_near     |             near value of the camera             |
-|     camera_far      |             far value of the camera              |
+|      Variable       |                 Explanation                 |
+| :-----------------: | :-----------------------------------------: |
+|   camera_position   |           position of the camera            |
+|    camera_target    |   normalized target vector of the camera    |
+|     projection      | projection matrix (e.g. perspective matrix) |
+| view_transformation |         view transformation matrix          |
+|     camera_near     |          near value of the camera           |
+|     camera_far      |           far value of the camera           |
 
-Use *CameraFront.AddProgram()* to add a shader to the camera.
+Use *CameraFront.AddProgram()* to add a program to the camera.
 Below is an example to register a program for spotlighting.
 
 ```Java
