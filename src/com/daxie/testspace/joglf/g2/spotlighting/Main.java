@@ -1,6 +1,7 @@
 package com.daxie.testspace.joglf.g2.spotlighting;
 
 import com.daxie.joglf.gl.front.GLFront;
+import com.daxie.joglf.gl.window.JOGLFWindow;
 import com.daxie.joglf.gl.wrapper.GLVersion;
 
 public class Main {
@@ -10,7 +11,8 @@ public class Main {
 	public Main() {
 		GLFront.Setup(GLVersion.GL4);
 		
-		new SingleSpotlightTestWindow();
-		new ThreeSpotlightsTestWindow();
+		JOGLFWindow window=new SingleSpotlightTestWindow();
+		window.SetTitle("Spotlight");
+		window.SetExitProcessWhenDestroyed();
 	}
 }
