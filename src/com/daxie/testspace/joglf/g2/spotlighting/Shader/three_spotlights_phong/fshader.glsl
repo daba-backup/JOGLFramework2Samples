@@ -50,7 +50,7 @@ void SetLighting(){
                 attenuation*=pow((cos_alpha-cos_half_phi)/(cos_half_theta-cos_half_phi),falloffs[i]);
             }
 
-            vec3 half_le=normalize(camera_target+light_directions[i]);
+            vec3 half_le=-normalize(camera_target+light_directions[i]);
             float specular=pow(clamp(dot(vs_out_normal,half_le),0.0,1.0),2.0);
 
             vec4 specular_color=vec4(specular*specular_powers[i]);
