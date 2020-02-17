@@ -16,6 +16,7 @@ import com.daxie.joglf.gl.tool.matrix.ProjectionMatrixFunctions;
 import com.daxie.joglf.gl.tool.matrix.TransformationMatrixFunctions;
 import com.daxie.joglf.gl.window.JOGLFWindow;
 import com.daxie.joglf.gl.wrapper.GLWrapper;
+import com.daxie.tool.MathFunctions;
 import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.GL4;
 
@@ -33,7 +34,7 @@ public class ShadowMappingTestWindow2 extends JOGLFWindow{
 
 	@Override
 	protected void Init() {
-		//Set up the program.
+		//Set up the programs.
 		GLShaderFunctions.CreateProgram(
 				"depth", 
 				"./Data/Shader/330/shadow_mapping_2/depth_vshader.glsl",
@@ -87,10 +88,10 @@ public class ShadowMappingTestWindow2 extends JOGLFWindow{
 	
 	@Override
 	protected void Update() {
-		Vector light_position=VectorFunctions.VGet(-20.0f, 20.0f, 20.0f);
+		Vector light_position=VectorFunctions.VGet(-40.0f, 40.0f, 40.0f);
 		Vector light_target=VectorFunctions.VGet(0.0f, 0.0f, 0.0f);
 		
-		Matrix projection=ProjectionMatrixFunctions.GetPerspectiveMatrix(20.0f, 1.0f, 1.0f, 100.0f);
+		Matrix projection=ProjectionMatrixFunctions.GetPerspectiveMatrix(MathFunctions.DegToRad(50.0f), 1.0f, 1.0f, 200.0f);
 		Matrix transformation=
 				TransformationMatrixFunctions.GetViewTransformationMatrix(
 						light_position, light_target, VectorFunctions.VGet(0.0f, 1.0f, 0.0f));

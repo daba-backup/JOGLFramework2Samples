@@ -14,6 +14,7 @@ public class Main {
 		GLFront.Setup(GLVersion.GL4);
 		
 		JOGLFWindow window=new ShadowMappingTestWindow();
+		window.SetTitle("Shadow Mapping");
 		window.SetExitProcessWhenDestroyed();
 	}
 }

@@ -31,7 +31,7 @@ public class DepthTextureTestWindow extends JOGLFWindow{
 	
 	@Override
 	protected void Init() {
-		//Set up the program.
+		//Set up the programs.
 		GLShaderFunctions.CreateProgram(
 				"depth", 
 				"./Data/Shader/330/depth_texture/depth_vshader.glsl",
