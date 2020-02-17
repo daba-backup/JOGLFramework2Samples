@@ -13,7 +13,7 @@ public class Main {
 		LogWriter.SetLogLevelFlags(LogWriter.LOG_LEVEL_ALL);
 		GLFront.Setup(GLVersion.GL4);
 		
-		JOGLFWindow window=new RayMarchingWTestWindow();
+		JOGLFWindow window=new RayMarchingTestWindow();
 		window.SetExitProcessWhenDestroyed();
 	}
 }
