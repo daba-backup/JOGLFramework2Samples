@@ -39,7 +39,7 @@ public class JBulletTestWindow3 extends JOGLFWindow{
 	
 	private Random random;
 	
-	private int map_model_handle;
+	private int container_model_handle;
 	private int fall_base_model_handle;
 	
 	public JBulletTestWindow3(int fps) {
@@ -63,10 +63,10 @@ public class JBulletTestWindow3 extends JOGLFWindow{
 		
 		//Set up the map.
 		final float MODEL_SCALE=1.7f/20.0f;
-		map_model_handle=Model3D.LoadModel("./Data/Model/BD1/Map/map.bd1");
-		Model3D.RescaleModel(map_model_handle, VectorFunctions.VGet(MODEL_SCALE, MODEL_SCALE, MODEL_SCALE));
+		container_model_handle=Model3D.LoadModel("./Data/Model/BD1/Container/container.bd1");
+		Model3D.RescaleModel(container_model_handle, VectorFunctions.VGet(MODEL_SCALE, MODEL_SCALE, MODEL_SCALE));
 		
-		List<Triangle> faces=Model3D.GetModelFaces(map_model_handle);
+		List<Triangle> faces=Model3D.GetModelFaces(container_model_handle);
 		
 		for(Triangle face:faces) {
 			Vertex3D[] vertices=face.GetVertices();
@@ -137,7 +137,7 @@ public class JBulletTestWindow3 extends JOGLFWindow{
 	
 	@Override
 	protected void Draw() {
-		Model3D.DrawModel(map_model_handle);
+		Model3D.DrawModel(container_model_handle);
 		
 		for(ExtendedRigidBody fall_rigidbody:fall_rigidbodies) {
 			fall_rigidbody.Draw();

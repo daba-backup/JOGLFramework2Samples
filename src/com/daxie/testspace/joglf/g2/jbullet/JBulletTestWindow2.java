@@ -73,7 +73,7 @@ public class JBulletTestWindow2 extends JOGLFWindow{
 		
 		//Load a model for the ground.
 		final float MODEL_SCALE=1.7f/20.0f;
-		ground_model_handle=Model3D.LoadModel("./Data/Model/BD1/Plane/plane.bd1");
+		ground_model_handle=Model3D.LoadModel("./Data/Model/BD1/Ground/ground.bd1");
 		Model3D.RescaleModel(ground_model_handle, VectorFunctions.VGet(MODEL_SCALE, MODEL_SCALE, MODEL_SCALE));
 		
 		//Load a model for boxes.

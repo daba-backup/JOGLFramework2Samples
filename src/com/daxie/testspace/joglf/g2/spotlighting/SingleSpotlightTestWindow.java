@@ -54,7 +54,9 @@ public class SingleSpotlightTestWindow extends JOGLFWindow{
 		//Camera info is automatically transmitted to all registered programs.
 		CameraFront.AddProgram("spotlight");
 		
-		model_handle=Model3D.LoadModel("./Data/Model/OBJ/Plane/plane.obj");
+		final float MODEL_SCALE=1.7f/20.0f;
+		model_handle=Model3D.LoadModel("./Data/Model/BD1/Ground/ground.bd1");
+		Model3D.RescaleModel(model_handle, VectorFunctions.VGet(MODEL_SCALE, MODEL_SCALE, MODEL_SCALE));
 		Model3D.RemoveAllPrograms(model_handle);
 		Model3D.AddProgram(model_handle, "spotlight");
 		

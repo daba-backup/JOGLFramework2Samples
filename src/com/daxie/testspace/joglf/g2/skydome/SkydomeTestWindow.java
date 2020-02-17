@@ -18,13 +18,13 @@ public class SkydomeTestWindow extends JOGLFWindow{
 		skydome_handle=Model3D.LoadModel("./Data/Model/OBJ/Sky/lsky.obj");
 		
 		GLShaderFunctions.CreateProgram(
-				"simple_3dshader", 
-				"./Data/Shader/330/simple_3dshader/vshader.glsl",
-				"./Data/Shader/330/simple_3dshader/fshader.glsl");
+				"simple_3d", 
+				"./Data/Shader/330/simple_3d/vshader.glsl",
+				"./Data/Shader/330/simple_3d/fshader.glsl");
 		Model3D.RemoveAllPrograms(skydome_handle);
-		Model3D.AddProgram(skydome_handle, "simple_3dshader");
+		Model3D.AddProgram(skydome_handle, "simple_3d");
 		
-		CameraFront.AddProgram("simple_3dshader");
+		CameraFront.AddProgram("simple_3d");
 	}
 	
 	@Override
