@@ -42,7 +42,6 @@ public class ThreeSpotlightsTestWindow extends JOGLFWindow{
 			"./Data/Shader/330/three_spotlights_phong/vshader.glsl",
 			"./Data/Shader/330/three_spotlights_phong/fshader.glsl");
 		
-		//Camera info is automatically transmitted to all registered programs.
 		CameraFront.AddProgram("spotlight");
 		
 		final float MODEL_SCALE=1.7f/20.0f;
