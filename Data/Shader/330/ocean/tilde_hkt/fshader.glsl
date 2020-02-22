@@ -23,7 +23,7 @@ complex mul(complex c0,complex c1){
     complex c;
 
     c.re=c0.re*c1.re-c0.im*c1.im;
-    c.im=c0.real*c1.im+c0.im*c1.real;
+    c.im=c0.re*c1.im+c0.im*c1.re;
 
     return c;
 }
