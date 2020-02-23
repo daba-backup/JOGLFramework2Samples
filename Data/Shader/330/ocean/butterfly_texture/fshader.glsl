@@ -3,7 +3,8 @@
 uniform int N;
 uniform isampler2D bit_reversed_indices;//size:N x 1
 
-layout(location=0) out vec4 fs_out_color;
+layout(location=0) out vec4 out_color_length;
+layout(location=1) out vec4 normalized_out_color;
 
 const float M_PI=3.1415926536;
 
@@ -34,26 +35,30 @@ void main(){
         butterfly_wing=0;
     }
 
+    vec4 out_color;
     //First stage
     if(x.x==0){
         //Top butterfly wing
         if(butterfly_wing==1){
-            fs_out_color=vec4(twiddle.re,twiddle.im,GetTexelR(x.y),GetTexelR(x.y+1));
+            out_color=vec4(twiddle.re,twiddle.im,GetTexelR(x.y),GetTexelR(x.y+1));
         }
         //Bottom butterfly wing
         else{
-            fs_out_color=vec4(twiddle.re,twiddle.im,GetTexelR(x.y-1),GetTexelR(x.y));
+            out_color=vec4(twiddle.re,twiddle.im,GetTexelR(x.y-1),GetTexelR(x.y));
         }
     }
     //From the second to the log2(N)th stage
     else{
         //Top butterfly wing
         if(butterfly_wing==1){
-            fs_out_color=vec4(twiddle.re,twiddle.im,x.y,x.y+butterfly_span);
+            out_color=vec4(twiddle.re,twiddle.im,x.y,x.y+butterfly_span);
         }
         //Bottom buttefly wing
         else{
-            fs_out_color=vec4(twiddle.re,twiddle.im,x.y-butterfly_span,x.y);
+            out_color=vec4(twiddle.re,twiddle.im,x.y-butterfly_span,x.y);
         }
     }
+
+    out_color_length=vec4(length(out_color),0.0,0.0,1.0);
+    normalized_out_color=out_color/out_color_length.r;
 }
