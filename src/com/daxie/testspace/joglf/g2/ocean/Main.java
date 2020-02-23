@@ -13,7 +13,7 @@ public class Main {
 		LogWriter.SetLogLevelFlags(LogWriter.LOG_LEVEL_ALL);
 		GLFront.Setup(GLVersion.GL4);
 		
-		JOGLFWindow window=new ButterflyComputationTestWindow();
+		JOGLFWindow window=new ButterflyTextureTestWindow2();
 		window.SetExitProcessWhenDestroyed();
 	}
 }

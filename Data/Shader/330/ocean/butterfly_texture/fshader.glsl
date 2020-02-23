@@ -1,7 +1,7 @@
 #version 330
 
 uniform int N;
-uniform usampler2D bit_reversed_indices;//size:N x 1
+uniform isampler2D bit_reversed_indices;//size:N x 1
 
 layout(location=0) out vec4 fs_out_color;
 
@@ -12,9 +12,9 @@ struct complex{
     float im;
 };
 
-uint GetTexelR(int index){
+int GetTexelR(int index){
     float u=(float(index)+0.5)/float(N);
-    uint r=texture(bit_reversed_indices,vec2(u,0.5)).r;
+    int r=texture(bit_reversed_indices,vec2(u,0.5)).r;
 
     return r;
 }

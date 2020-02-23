@@ -1,15 +1,11 @@
 package com.daxie.testspace.joglf.g2.ocean;
 
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.nio.Buffer;
-import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
+import java.util.ArrayList;
 import java.util.List;
-
-import javax.imageio.ImageIO;
 
 import com.daxie.joglf.gl.draw.GLDrawFunctions2D;
 import com.daxie.joglf.gl.shader.GLShaderFunctions;
@@ -152,79 +148,104 @@ public class ButterflyComputationTestWindow extends JOGLFWindow{
 	protected void Draw() {
 		this.ButterflyComputation();
 		
-		this.SaveTextures();
+		this.SaveResult();
 		this.CloseWindow();
 	}
 	private void ButterflyComputation() {
 		program.Enable();
 		
-		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, butterfly_texture_id);
 		GLWrapper.glActiveTexture(GL4.GL_TEXTURE0);
+		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, butterfly_texture_id);
 		program.SetUniform("butterfly_texture", 0);
 		
-		GLWrapper.glBindFramebuffer(GL4.GL_FRAMEBUFFER, fbo_id);
 		GLWrapper.glViewport(0, 0, TEXTURE_WIDTH, TEXTURE_HEIGHT);
 		
+		//Horizontal
+		program.SetUniform("direction", 0);
 		for(int i=0;i<9;i++) {
 			program.SetUniform("stage", i);
 			
-			//Horizontal
-			program.SetUniform("direction", 0);
-			GLWrapper.glFramebufferTexture2D(
-					GL4.GL_FRAMEBUFFER, GL4.GL_COLOR_ATTACHMENT0, 
-					GL4.GL_TEXTURE_2D, pingpong_texture_ids[1], 0);
-			if(GLWrapper.glCheckFramebufferStatus(GL4.GL_FRAMEBUFFER)!=GL4.GL_FRAMEBUFFER_COMPLETE) {
-				System.out.println("Error:Incomplete framebuffer");
-			}
-			GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, pingpong_texture_ids[0]);
-			GLWrapper.glActiveTexture(GL4.GL_TEXTURE1);
-			program.SetUniform("input_texture", 1);
-			GLDrawFunctions2D.TransferFullscreenQuad();
+			GLWrapper.glBindFramebuffer(GL4.GL_FRAMEBUFFER, fbo_id);
 			
-			//Vertical
-			program.SetUniform("direction", 1);
-			GLWrapper.glFramebufferTexture2D(
-					GL4.GL_FRAMEBUFFER, GL4.GL_COLOR_ATTACHMENT0, 
-					GL4.GL_TEXTURE_2D, pingpong_texture_ids[0], 0);
-			if(GLWrapper.glCheckFramebufferStatus(GL4.GL_FRAMEBUFFER)!=GL4.GL_FRAMEBUFFER_COMPLETE) {
-				System.out.println("Error:Incomplete framebuffer");
+			if(i%2==0) {
+				GLWrapper.glFramebufferTexture2D(
+						GL4.GL_FRAMEBUFFER, GL4.GL_COLOR_ATTACHMENT0, 
+						GL4.GL_TEXTURE_2D, pingpong_texture_ids[1], 0);
+				if(GLWrapper.glCheckFramebufferStatus(GL4.GL_FRAMEBUFFER)!=GL4.GL_FRAMEBUFFER_COMPLETE) {
+					System.out.println("Error:Incomplete framebuffer");
+				}
+				GLWrapper.glActiveTexture(GL4.GL_TEXTURE1);
+				GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, pingpong_texture_ids[0]);
+				program.SetUniform("input_texture", 1);
 			}
-			GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, pingpong_texture_ids[1]);
-			GLWrapper.glActiveTexture(GL4.GL_TEXTURE1);
-			program.SetUniform("input_texture", 1);
+			else {
+				GLWrapper.glFramebufferTexture2D(
+						GL4.GL_FRAMEBUFFER, GL4.GL_COLOR_ATTACHMENT0, 
+						GL4.GL_TEXTURE_2D, pingpong_texture_ids[0], 0);
+				if(GLWrapper.glCheckFramebufferStatus(GL4.GL_FRAMEBUFFER)!=GL4.GL_FRAMEBUFFER_COMPLETE) {
+					System.out.println("Error:Incomplete framebuffer");
+				}
+				GLWrapper.glActiveTexture(GL4.GL_TEXTURE1);
+				GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, pingpong_texture_ids[1]);
+				program.SetUniform("input_texture", 1);
+			}
+			
 			GLDrawFunctions2D.TransferFullscreenQuad();
+			GLWrapper.glBindFramebuffer(GL4.GL_FRAMEBUFFER, 0);
 		}
 		
-		GLWrapper.glBindFramebuffer(GL4.GL_FRAMEBUFFER, 0);
+		//Vertical
+		program.SetUniform("direction", 1);
+		for(int i=0;i<9;i++) {
+			program.SetUniform("stage", i);
+			
+			GLWrapper.glBindFramebuffer(GL4.GL_FRAMEBUFFER, fbo_id);
+			
+			if(i%2==0) {
+				GLWrapper.glFramebufferTexture2D(
+						GL4.GL_FRAMEBUFFER, GL4.GL_COLOR_ATTACHMENT0, 
+						GL4.GL_TEXTURE_2D, pingpong_texture_ids[1], 0);
+				if(GLWrapper.glCheckFramebufferStatus(GL4.GL_FRAMEBUFFER)!=GL4.GL_FRAMEBUFFER_COMPLETE) {
+					System.out.println("Error:Incomplete framebuffer");
+				}
+				GLWrapper.glActiveTexture(GL4.GL_TEXTURE1);
+				GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, pingpong_texture_ids[0]);
+				program.SetUniform("input_texture", 1);	
+			}
+			else {
+				GLWrapper.glFramebufferTexture2D(
+						GL4.GL_FRAMEBUFFER, GL4.GL_COLOR_ATTACHMENT0, 
+						GL4.GL_TEXTURE_2D, pingpong_texture_ids[0], 0);
+				if(GLWrapper.glCheckFramebufferStatus(GL4.GL_FRAMEBUFFER)!=GL4.GL_FRAMEBUFFER_COMPLETE) {
+					System.out.println("Error:Incomplete framebuffer");
+				}
+				GLWrapper.glActiveTexture(GL4.GL_TEXTURE1);
+				GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, pingpong_texture_ids[1]);
+				program.SetUniform("input_texture", 1);
+			}
+			
+			GLDrawFunctions2D.TransferFullscreenQuad();
+			GLWrapper.glBindFramebuffer(GL4.GL_FRAMEBUFFER, 0);
+		}
 	}
-	private void SaveTextures() {
+	private void SaveResult() {
 		int size=TEXTURE_WIDTH*TEXTURE_HEIGHT*4;
-		ByteBuffer data=Buffers.newDirectByteBuffer(size);
+		FloatBuffer data=Buffers.newDirectFloatBuffer(size);
 		
-		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, pingpong_texture_ids[0]);
-		GLWrapper.glGetTexImage(GL4.GL_TEXTURE_2D, 0, GL4.GL_RGBA, GL4.GL_UNSIGNED_BYTE, data);
+		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, pingpong_texture_ids[1]);
+		GLWrapper.glGetTexImage(GL4.GL_TEXTURE_2D, 0, GL4.GL_RGBA, GL4.GL_FLOAT, data);
 		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, 0);
 		
-		BufferedImage image=new BufferedImage(TEXTURE_WIDTH, TEXTURE_HEIGHT, BufferedImage.TYPE_3BYTE_BGR);
-		
-		int pos=0;
-		for(int y=TEXTURE_HEIGHT-1;y>=0;y--) {
-			for(int x=0;x<TEXTURE_WIDTH;x++) {
-				int r=Byte.toUnsignedInt(data.get(pos));
-				int g=Byte.toUnsignedInt(data.get(pos+1));
-				int b=Byte.toUnsignedInt(data.get(pos+2));
-				int a=Byte.toUnsignedInt(data.get(pos+3));
-				int rgb=(a<<24)|(r<<16)|(g<<8)|b;
-				image.setRGB(x, y, rgb);
-				
-				pos+=4;
-			}
+		List<String> data_lines=new ArrayList<>();
+		for(int i=0;i<size;i+=4) {
+			data_lines.add(String.valueOf(data.get(i)));
+			data_lines.add(String.valueOf(data.get(i+1)));
 		}
 		
 		try {
-			ImageIO.write(image, "bmp", new File("./Data/Screenshot/ocean/pingpong0.bmp"));
+			FileFunctions.CreateTextFile("./Data/Text/ocean/pingpong.txt", "UTF-8", data_lines);
 		}
-		catch(Exception e) {
+		catch(IOException e) {
 			e.printStackTrace();
 		}
 	}

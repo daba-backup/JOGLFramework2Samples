@@ -110,8 +110,8 @@ public class ButterflyTextureTestWindow extends JOGLFWindow{
 		GLWrapper.glBindFramebuffer(GL4.GL_FRAMEBUFFER, fbo_id);
 		GLWrapper.glViewport(0, 0, TEXTURE_WIDTH, TEXTURE_HEIGHT);
 		GLWrapper.glClear(GL4.GL_COLOR_BUFFER_BIT);
-		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, input_texture_id);
 		GLWrapper.glActiveTexture(GL4.GL_TEXTURE0);
+		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, input_texture_id);
 		program.SetUniform("bit_reversed_indices", 0);
 		GLDrawFunctions2D.TransferFullscreenQuad();
 		GLWrapper.glBindFramebuffer(GL4.GL_FRAMEBUFFER, 0);
