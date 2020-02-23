@@ -75,7 +75,7 @@ public class ButterflyComputationTestWindow extends JOGLFWindow{
 		
 		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, butterfly_texture_id);
 		GLWrapper.glTexImage2D(
-				GL4.GL_TEXTURE_2D, 0, GL4.GL_RGBA32F, 
+				GL4.GL_TEXTURE_2D, 0, GL4.GL_RGBA, 
 				9, 512, 0, GL4.GL_RGBA, GL4.GL_FLOAT, butterfly_buf);
 		GLWrapper.glTexParameteri(GL4.GL_TEXTURE_2D, GL4.GL_TEXTURE_MAG_FILTER, GL4.GL_NEAREST);
 		GLWrapper.glTexParameteri(GL4.GL_TEXTURE_2D, GL4.GL_TEXTURE_MIN_FILTER, GL4.GL_NEAREST);
@@ -114,7 +114,7 @@ public class ButterflyComputationTestWindow extends JOGLFWindow{
 		
 		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, pingpong_texture_ids[0]);
 		GLWrapper.glTexImage2D(
-				GL4.GL_TEXTURE_2D, 0, GL4.GL_RGBA32F, 
+				GL4.GL_TEXTURE_2D, 0, GL4.GL_RGBA, 
 				TEXTURE_WIDTH, TEXTURE_HEIGHT, 0, GL4.GL_RGBA, GL4.GL_FLOAT, hkt_buf);
 		GLWrapper.glTexParameteri(GL4.GL_TEXTURE_2D, GL4.GL_TEXTURE_MAG_FILTER, GL4.GL_NEAREST);
 		GLWrapper.glTexParameteri(GL4.GL_TEXTURE_2D, GL4.GL_TEXTURE_MIN_FILTER, GL4.GL_NEAREST);
@@ -124,7 +124,7 @@ public class ButterflyComputationTestWindow extends JOGLFWindow{
 		
 		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, pingpong_texture_ids[1]);
 		GLWrapper.glTexImage2D(
-				GL4.GL_TEXTURE_2D, 0, GL4.GL_RGBA32F, 
+				GL4.GL_TEXTURE_2D, 0, GL4.GL_RGBA, 
 				TEXTURE_WIDTH, TEXTURE_HEIGHT, 0, GL4.GL_RGBA, GL4.GL_FLOAT, null);
 		GLWrapper.glTexParameteri(GL4.GL_TEXTURE_2D, GL4.GL_TEXTURE_MAG_FILTER, GL4.GL_NEAREST);
 		GLWrapper.glTexParameteri(GL4.GL_TEXTURE_2D, GL4.GL_TEXTURE_MIN_FILTER, GL4.GL_NEAREST);

@@ -90,7 +90,7 @@ public class HktTestWindow extends JOGLFWindow{
 		
 		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, input_texture_ids[0]);
 		GLWrapper.glTexImage2D(
-				GL4.GL_TEXTURE_2D, 0,GL4.GL_RGBA32F, 
+				GL4.GL_TEXTURE_2D, 0,GL4.GL_RGBA, 
 				TEXTURE_WIDTH, TEXTURE_HEIGHT, 0, GL4.GL_RGBA, GL4.GL_FLOAT, h0k_buf);
 		GLWrapper.glTexParameteri(GL4.GL_TEXTURE_2D, GL4.GL_TEXTURE_MAG_FILTER, GL4.GL_NEAREST);
 		GLWrapper.glTexParameteri(GL4.GL_TEXTURE_2D, GL4.GL_TEXTURE_MIN_FILTER, GL4.GL_NEAREST);
@@ -99,7 +99,7 @@ public class HktTestWindow extends JOGLFWindow{
 		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, 0);
 		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, input_texture_ids[1]);
 		GLWrapper.glTexImage2D(
-				GL4.GL_TEXTURE_2D, 0,GL4.GL_RGBA32F, 
+				GL4.GL_TEXTURE_2D, 0,GL4.GL_RGBA, 
 				TEXTURE_WIDTH, TEXTURE_HEIGHT, 0, GL4.GL_RGBA, GL4.GL_FLOAT, h0minusk_buf);
 		GLWrapper.glTexParameteri(GL4.GL_TEXTURE_2D, GL4.GL_TEXTURE_MAG_FILTER, GL4.GL_NEAREST);
 		GLWrapper.glTexParameteri(GL4.GL_TEXTURE_2D, GL4.GL_TEXTURE_MIN_FILTER, GL4.GL_NEAREST);
@@ -131,8 +131,8 @@ public class HktTestWindow extends JOGLFWindow{
 	private void SetupProgram() {
 		GLShaderFunctions.CreateProgram(
 				"tilde_hkt", 
-				"./Data/Shader/330/ocean/tilde_hkt/vshader.glsl",
-				"./Data/Shader/330/ocean/tilde_hkt/fshader.glsl");
+				"./Data/Shader/330/ocean/visualization/tilde_hkt/vshader.glsl",
+				"./Data/Shader/330/ocean/visualization/tilde_hkt/fshader.glsl");
 		program=new ShaderProgram("tilde_hkt");
 		
 		program.Enable();
@@ -147,11 +147,11 @@ public class HktTestWindow extends JOGLFWindow{
 		GLWrapper.glBindFramebuffer(GL4.GL_FRAMEBUFFER, fbo_id);
 		GLWrapper.glViewport(0, 0, TEXTURE_WIDTH, TEXTURE_HEIGHT);
 		GLWrapper.glClear(GL4.GL_COLOR_BUFFER_BIT);
-		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, input_texture_ids[0]);
 		GLWrapper.glActiveTexture(GL4.GL_TEXTURE0);
+		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, input_texture_ids[0]);
 		program.SetUniform("tilde_h0k", 0);
-		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, input_texture_ids[1]);
 		GLWrapper.glActiveTexture(GL4.GL_TEXTURE1);
+		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, input_texture_ids[1]);
 		program.SetUniform("tilde_h0minusk", 1);
 		GLDrawFunctions2D.TransferFullscreenQuad();
 		GLWrapper.glBindFramebuffer(GL4.GL_FRAMEBUFFER, 0);

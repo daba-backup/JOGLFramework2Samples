@@ -46,8 +46,8 @@ public class ButterflyTextureTestWindow extends JOGLFWindow{
 		
 		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, input_texture_id);
 		GLWrapper.glTexImage2D(
-				GL4.GL_TEXTURE_2D, 0, GL4.GL_R32UI, 
-				512, 1, 0, GL4.GL_RED_INTEGER, GL4.GL_UNSIGNED_INT, bit_reversed_indices);
+				GL4.GL_TEXTURE_2D, 0, GL4.GL_R32I, 
+				512, 1, 0, GL4.GL_RED_INTEGER, GL4.GL_INT, bit_reversed_indices);
 		GLWrapper.glTexParameteri(GL4.GL_TEXTURE_2D, GL4.GL_TEXTURE_MAG_FILTER, GL4.GL_NEAREST);
 		GLWrapper.glTexParameteri(GL4.GL_TEXTURE_2D, GL4.GL_TEXTURE_MIN_FILTER, GL4.GL_NEAREST);
 		GLWrapper.glTexParameteri(GL4.GL_TEXTURE_2D, GL4.GL_TEXTURE_WRAP_S, GL4.GL_CLAMP_TO_EDGE);
@@ -96,8 +96,8 @@ public class ButterflyTextureTestWindow extends JOGLFWindow{
 	private void SetupProgram() {
 		GLShaderFunctions.CreateProgram(
 				"butterfly_texture", 
-				"./Data/Shader/330/ocean/butterfly_texture/vshader.glsl",
-				"./Data/Shader/330/ocean/butterfly_texture/fshader.glsl");
+				"./Data/Shader/330/ocean/visualization/butterfly_texture/vshader.glsl",
+				"./Data/Shader/330/ocean/visualization/butterfly_texture/fshader.glsl");
 		program=new ShaderProgram("butterfly_texture");
 		
 		program.Enable();

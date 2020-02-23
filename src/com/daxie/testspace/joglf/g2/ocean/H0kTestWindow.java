@@ -57,7 +57,7 @@ public class H0kTestWindow extends JOGLFWindow{
 		
 		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, input_texture_id);
 		GLWrapper.glTexImage2D(
-				GL4.GL_TEXTURE_2D, 0,GL4.GL_RGBA32F, 
+				GL4.GL_TEXTURE_2D, 0,GL4.GL_RGBA, 
 				TEXTURE_WIDTH, TEXTURE_HEIGHT, 0, GL4.GL_RGBA, GL4.GL_FLOAT, fbuf);
 		GLWrapper.glTexParameteri(GL4.GL_TEXTURE_2D, GL4.GL_TEXTURE_MAG_FILTER, GL4.GL_NEAREST);
 		GLWrapper.glTexParameteri(GL4.GL_TEXTURE_2D, GL4.GL_TEXTURE_MIN_FILTER, GL4.GL_NEAREST);
@@ -96,8 +96,8 @@ public class H0kTestWindow extends JOGLFWindow{
 	private void SetupProgram() {
 		GLShaderFunctions.CreateProgram(
 				"tilde_h0k", 
-				"./Data/Shader/330/ocean/tilde_h0k/vshader.glsl",
-				"./Data/Shader/330/ocean/tilde_h0k/fshader.glsl");
+				"./Data/Shader/330/ocean/visualization/tilde_h0k/vshader.glsl",
+				"./Data/Shader/330/ocean/visualization/tilde_h0k/fshader.glsl");
 		program=new ShaderProgram("tilde_h0k");
 		
 		program.Enable();
@@ -114,8 +114,8 @@ public class H0kTestWindow extends JOGLFWindow{
 		GLWrapper.glBindFramebuffer(GL4.GL_FRAMEBUFFER, fbo_id);
 		GLWrapper.glViewport(0, 0, TEXTURE_WIDTH, TEXTURE_HEIGHT);
 		GLWrapper.glClear(GL4.GL_COLOR_BUFFER_BIT);
-		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, input_texture_id);
 		GLWrapper.glActiveTexture(GL4.GL_TEXTURE0);
+		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, input_texture_id);
 		program.SetUniform("input_texture", 0);
 		GLDrawFunctions2D.TransferFullscreenQuad();
 		GLWrapper.glBindFramebuffer(GL4.GL_FRAMEBUFFER, 0);
