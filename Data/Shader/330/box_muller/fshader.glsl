@@ -3,8 +3,7 @@
 uniform ivec2 rnd_nums;
 uniform sampler2D uniform_rnds;
 
-layout(location=0) out vec4 normalized_rnds;
-layout(location=1) out vec4 rnds_size;
+layout(location=0) out vec4 normal_rnds;
 
 const float M_PI=3.1415926536;
 
@@ -14,7 +13,7 @@ vec4 GetUniformRnds(ivec2 x){
 }
 
 //Box-Muller's method
-vec4 GetGaussianRnds(){
+vec4 GetNormalRnds(){
     vec4 color=GetUniformRnds(ivec2(gl_FragCoord.xy));
 
     vec4 rnds;
@@ -27,8 +26,5 @@ vec4 GetGaussianRnds(){
 }
 
 void main(){
-    vec4 rnds=GetGaussianRnds();
-
-    rnds_size=vec4(length(rnds),0.0,0.0,1.0);
-    normalized_rnds=rnds/rnds_size.r;
+    normal_rnds=GetNormalRnds();
 }
