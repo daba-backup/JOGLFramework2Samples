@@ -6,14 +6,10 @@ uniform int total_stage_num;//=log2(N)
 uniform int stage;
 uniform int direction;
 
-uniform sampler2D butterfly_length;
-uniform sampler2D normalized_butterfly;
+uniform sampler2D butterfly_texture;
+uniform sampler2D pingpong_in;
 
-uniform sampler2D pingpong_in_length;
-uniform sampler2D normalized_pingpong_in;
-
-layout(location=0) out vec4 pingpong_out_length;
-layout(location=1) out vec4 normalized_pingpong_out;
+layout(location=0) out vec4 pingpong_out;
 
 struct complex{
     float re;
@@ -42,14 +38,14 @@ vec4 GetTexelFromButterflyTexture(ivec2 p){
     uv.x=(float(p.x)+0.5)/total_stage_num;
     uv.y=(float(p.y)+0.5)/N;
 
-    return texture(normalized_butterfly,uv)*texture(butterfly_length,uv).r;
+    return texture(butterfly_texture,uv);
 }
 vec4 GetTexelFromPingpongTexture(ivec2 p){
     vec2 uv;
     uv.x=(float(p.x)+0.5)/N;
     uv.y=(float(p.y)+0.5)/N;
 
-    return texture(normalized_pingpong_in,uv)*texture(pingpong_in_length,uv).r;
+    return texture(pingpong_in,uv);
 }
 
 vec4 HorizontalButterflies(){
@@ -98,14 +94,10 @@ vec4 VerticalButterflies(){
 }
 
 void main(){
-    vec4 color;
     if(direction==0){
-        color=HorizontalButterflies();
+        pingpong_out=HorizontalButterflies();
     }
     else{
-        color=VerticalButterflies();
+        pingpong_out=VerticalButterflies();
     }
-
-    pingpong_out_length=vec4(length(color),0.0,0.0,0.0);
-    normalized_pingpong_out=color/pingpong_out_length.r;
 }

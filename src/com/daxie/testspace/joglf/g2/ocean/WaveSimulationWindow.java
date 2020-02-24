@@ -5,8 +5,8 @@ import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
-import com.daxie.joglf.gl.draw.GLDrawFunctions2D;
 import com.daxie.joglf.gl.shader.ShaderProgram;
+import com.daxie.joglf.gl.transferer.FullscreenQuadTransferer;
 import com.daxie.joglf.gl.window.JOGLFWindow;
 import com.daxie.joglf.gl.wrapper.GLWrapper;
 import com.jogamp.common.nio.Buffers;
@@ -17,11 +17,12 @@ public class WaveSimulationWindow extends JOGLFWindow{
 	private ButterflyComputation butterfly_computation;
 	private InversionAndPermutation inv_and_perm;
 	
-	private static final int N=256;
+	private static final int N=512;
 	
 	private int heightmap_id;
 	
 	private ShaderProgram program;
+	private FullscreenQuadTransferer transferer;
 	
 	@Override
 	protected void Init() {
@@ -33,18 +34,17 @@ public class WaveSimulationWindow extends JOGLFWindow{
 		
 		tilde_h0k_computation.Compute();
 		
-		tilde_hkt_computation.SetTildeH0kLength(tilde_h0k_computation.GetTildeH0kLength());
-		tilde_hkt_computation.SetTildeH0minuskLength(tilde_h0k_computation.GetTildeH0minuskLength());
-		tilde_hkt_computation.SetNormalizedTildeH0k(tilde_h0k_computation.GetNormalizedTildeH0k());
-		tilde_hkt_computation.SetNormalizedTildeMinusk(tilde_h0k_computation.GetNormalizedTildeH0minusk());
+		tilde_hkt_computation.SetTildeH0k(tilde_h0k_computation.GetTildeH0k());
+		tilde_hkt_computation.SetTildeH0minusk(tilde_h0k_computation.GetTildeH0minusk());
 		
 		butterfly_texture_generation.Compute();
 		
-		butterfly_computation.SetButterflyLength(butterfly_texture_generation.GetOutColorLength());
-		butterfly_computation.SetNormalizedButterfly(butterfly_texture_generation.GetNormalizedOutColor());
+		butterfly_computation.SetButterflyTexture(butterfly_texture_generation.GetOutColor());
 		
 		this.SetupHeightmap();
 		this.SetupProgram();
+		
+		transferer=new FullscreenQuadTransferer();
 	}
 	private void SetupHeightmap() {
 		IntBuffer texture_ids=Buffers.newDirectIntBuffer(1);
@@ -67,40 +67,36 @@ public class WaveSimulationWindow extends JOGLFWindow{
 		tilde_hkt_computation.Compute();
 		tilde_hkt_computation.AdvanceTime(1.0f/30.0f);
 		
-		butterfly_computation.SetPingpongInLength(tilde_hkt_computation.GetTildeHktLength());
-		butterfly_computation.SetNormalizedPingpongIn(tilde_hkt_computation.GetNormalizedTildeHkt());
+		butterfly_computation.SetPingpongIn(tilde_hkt_computation.GetTildeHkt());
 		butterfly_computation.Compute();
 		
-		inv_and_perm.SetInputLength(butterfly_computation.GetOutLength());
-		inv_and_perm.SetNormalizedInput(butterfly_computation.GetNormalizedOut());
+		inv_and_perm.SetInputTexture(butterfly_computation.GetComputationResult());
 		inv_and_perm.Compute();
 		
-		FloatBuffer heightmap_length=inv_and_perm.GetHeightmapLength();
-		FloatBuffer normalized_heightmap=inv_and_perm.GetNormalizedHeightmap();
-		ByteBuffer heightmap=Buffers.newDirectByteBuffer(N*N*4);
+		FloatBuffer heightmap=inv_and_perm.GetHeightmap();
+		ByteBuffer b_heightmap=Buffers.newDirectByteBuffer(N*N*4);
+		
+		System.out.println(heightmap.get(0));
 		
 		int size=N*N*4;
 		for(int i=0;i<size;i+=4) {
-			float len=heightmap_length.get(i);
-			float height=normalized_heightmap.get(i);
-			
-			float f=len*height;
+			float height=heightmap.get(i);
 			
 			byte b;
-			if(f<0.0f)b=0;
-			else b=(byte)(f*255.0f);
+			if(height<0.0f)b=0;
+			else b=(byte)(height*255.0f);
 			
-			heightmap.put(b);
-			heightmap.put(b);
-			heightmap.put(b);
-			heightmap.put((byte)255);
+			b_heightmap.put(b);
+			b_heightmap.put(b);
+			b_heightmap.put(b);
+			b_heightmap.put((byte)255);
 		}
-		((Buffer)heightmap).flip();
+		((Buffer)b_heightmap).flip();
 		
 		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, heightmap_id);
 		GLWrapper.glTexImage2D(
 				GL4.GL_TEXTURE_2D, 0,GL4.GL_RGBA, 
-				N, N, 0, GL4.GL_RGBA, GL4.GL_UNSIGNED_BYTE, heightmap);
+				N, N, 0, GL4.GL_RGBA, GL4.GL_UNSIGNED_BYTE, b_heightmap);
 		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, 0);
 	}
 	
@@ -111,7 +107,7 @@ public class WaveSimulationWindow extends JOGLFWindow{
 		GLWrapper.glActiveTexture(GL4.GL_TEXTURE0);
 		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, heightmap_id);
 		program.SetUniform("texture_sampler", 0);
-		GLDrawFunctions2D.TransferFullscreenQuad();
+		transferer.Transfer();
 		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, 0);
 	}
 }

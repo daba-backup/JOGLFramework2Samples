@@ -5,9 +5,9 @@ import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import java.util.Random;
 
-import com.daxie.joglf.gl.draw.GLDrawFunctions2D;
 import com.daxie.joglf.gl.shader.GLShaderFunctions;
 import com.daxie.joglf.gl.shader.ShaderProgram;
+import com.daxie.joglf.gl.transferer.FullscreenQuadTransferer;
 import com.daxie.joglf.gl.wrapper.GLWrapper;
 import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.GL4;
@@ -24,12 +24,12 @@ class TildeH0kComputation {
 	//Input texture
 	private int uniform_rnds_id;
 	//Output textures
-	private int tilde_h0k_length_id;
-	private int normalized_tilde_h0k_id;
-	private int tilde_h0minusk_length_id;
-	private int normalized_tilde_h0minusk_id;
+	private int tilde_h0k_id;
+	private int tilde_h0minusk_id;
 	
 	private ShaderProgram program;
+	
+	private FullscreenQuadTransferer transferer;
 	
 	public TildeH0kComputation(int N) {
 		this.N=N;
@@ -43,6 +43,8 @@ class TildeH0kComputation {
 		this.SetupOutputTextures();
 		this.SetupFramebuffer();
 		this.SetupProgram();
+		
+		transferer=new FullscreenQuadTransferer();
 	}
 	private void SetupInputTexture() {
 		IntBuffer texture_ids=Buffers.newDirectIntBuffer(1);
@@ -70,14 +72,12 @@ class TildeH0kComputation {
 		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, 0);
 	}
 	private void SetupOutputTextures() {
-		IntBuffer texture_ids=Buffers.newDirectIntBuffer(4);
-		GLWrapper.glGenTextures(4, texture_ids);
-		tilde_h0k_length_id=texture_ids.get(0);
-		normalized_tilde_h0k_id=texture_ids.get(1);
-		tilde_h0minusk_length_id=texture_ids.get(2);
-		normalized_tilde_h0minusk_id=texture_ids.get(3);
+		IntBuffer texture_ids=Buffers.newDirectIntBuffer(2);
+		GLWrapper.glGenTextures(2, texture_ids);
+		tilde_h0k_id=texture_ids.get(0);
+		tilde_h0minusk_id=texture_ids.get(1);
 		
-		for(int i=0;i<4;i++) {
+		for(int i=0;i<2;i++) {
 			GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, texture_ids.get(i));
 			GLWrapper.glTexImage2D(
 					GL4.GL_TEXTURE_2D, 0,GL4.GL_RGBA32F, 
@@ -97,23 +97,15 @@ class TildeH0kComputation {
 		GLWrapper.glBindFramebuffer(GL4.GL_FRAMEBUFFER, fbo_id);
 		GLWrapper.glFramebufferTexture2D(
 				GL4.GL_FRAMEBUFFER, GL4.GL_COLOR_ATTACHMENT0, 
-				GL4.GL_TEXTURE_2D, tilde_h0k_length_id, 0);
+				GL4.GL_TEXTURE_2D, tilde_h0k_id, 0);
 		GLWrapper.glFramebufferTexture2D(
 				GL4.GL_FRAMEBUFFER, GL4.GL_COLOR_ATTACHMENT1, 
-				GL4.GL_TEXTURE_2D, normalized_tilde_h0k_id, 0);
-		GLWrapper.glFramebufferTexture2D(
-				GL4.GL_FRAMEBUFFER, GL4.GL_COLOR_ATTACHMENT2, 
-				GL4.GL_TEXTURE_2D, tilde_h0minusk_length_id, 0);
-		GLWrapper.glFramebufferTexture2D(
-				GL4.GL_FRAMEBUFFER, GL4.GL_COLOR_ATTACHMENT3, 
-				GL4.GL_TEXTURE_2D, normalized_tilde_h0minusk_id, 0);
+				GL4.GL_TEXTURE_2D, tilde_h0minusk_id, 0);
 		if(GLWrapper.glCheckFramebufferStatus(GL4.GL_FRAMEBUFFER)!=GL4.GL_FRAMEBUFFER_COMPLETE) {
 			System.out.println("TildeH0kComputation:Incomplete framebuffer");
 		}
-		int[] draw_buffers=new int[] {
-				GL4.GL_COLOR_ATTACHMENT0,GL4.GL_COLOR_ATTACHMENT1,
-				GL4.GL_COLOR_ATTACHMENT2,GL4.GL_COLOR_ATTACHMENT3};
-		GLWrapper.glDrawBuffers(4, Buffers.newDirectIntBuffer(draw_buffers));
+		int[] draw_buffers=new int[] {GL4.GL_COLOR_ATTACHMENT0,GL4.GL_COLOR_ATTACHMENT1};
+		GLWrapper.glDrawBuffers(2, Buffers.newDirectIntBuffer(draw_buffers));
 		GLWrapper.glBindFramebuffer(GL4.GL_FRAMEBUFFER, 0);
 	}
 	private void SetupProgram() {
@@ -145,44 +137,26 @@ class TildeH0kComputation {
 		GLWrapper.glActiveTexture(GL4.GL_TEXTURE0);
 		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, uniform_rnds_id);
 		program.SetUniform("uniform_rnds", 0);
-		GLDrawFunctions2D.TransferFullscreenQuad();
+		transferer.Transfer();
 		GLWrapper.glBindFramebuffer(GL4.GL_FRAMEBUFFER, 0);
 	}
 	
-	public FloatBuffer GetTildeH0kLength() {
-		FloatBuffer tilde_h0k_length_buf=Buffers.newDirectFloatBuffer(N*N*4);
+	public FloatBuffer GetTildeH0k() {
+		FloatBuffer buf=Buffers.newDirectFloatBuffer(N*N*4);
 		
-		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, tilde_h0k_length_id);
-		GLWrapper.glGetTexImage(GL4.GL_TEXTURE_2D, 0, GL4.GL_RGBA, GL4.GL_FLOAT, tilde_h0k_length_buf);
+		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, tilde_h0k_id);
+		GLWrapper.glGetTexImage(GL4.GL_TEXTURE_2D, 0, GL4.GL_RGBA, GL4.GL_FLOAT, buf);
 		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, 0);
 		
-		return tilde_h0k_length_buf;
+		return buf;
 	}
-	public FloatBuffer GetNormalizedTildeH0k() {
-		FloatBuffer normalized_tilde_h0k_buf=Buffers.newDirectFloatBuffer(N*N*4);
+	public FloatBuffer GetTildeH0minusk() {
+		FloatBuffer buf=Buffers.newDirectFloatBuffer(N*N*4);
 		
-		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, normalized_tilde_h0k_id);
-		GLWrapper.glGetTexImage(GL4.GL_TEXTURE_2D, 0, GL4.GL_RGBA, GL4.GL_FLOAT, normalized_tilde_h0k_buf);
+		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, tilde_h0minusk_id);
+		GLWrapper.glGetTexImage(GL4.GL_TEXTURE_2D, 0, GL4.GL_RGBA, GL4.GL_FLOAT, buf);
 		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, 0);
 		
-		return normalized_tilde_h0k_buf;
-	}
-	public FloatBuffer GetTildeH0minuskLength() {
-		FloatBuffer tilde_h0minusk_length_buf=Buffers.newDirectFloatBuffer(N*N*4);
-		
-		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, tilde_h0minusk_length_id);
-		GLWrapper.glGetTexImage(GL4.GL_TEXTURE_2D, 0, GL4.GL_RGBA, GL4.GL_FLOAT, tilde_h0minusk_length_buf);
-		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, 0);
-		
-		return tilde_h0minusk_length_buf;
-	}
-	public FloatBuffer GetNormalizedTildeH0minusk() {
-		FloatBuffer normalized_tilde_h0minusk_buf=Buffers.newDirectFloatBuffer(N*N*4);
-		
-		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, normalized_tilde_h0minusk_id);
-		GLWrapper.glGetTexImage(GL4.GL_TEXTURE_2D, 0, GL4.GL_RGBA, GL4.GL_FLOAT, normalized_tilde_h0minusk_buf);
-		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, 0);
-		
-		return normalized_tilde_h0minusk_buf;
+		return buf;
 	}
 }

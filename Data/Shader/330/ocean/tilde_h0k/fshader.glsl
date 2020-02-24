@@ -8,10 +8,8 @@ uniform float A;
 uniform float v;//Wind speed
 uniform vec2 w;//Direction of the wind
 
-layout(location=0) out vec4 tilde_h0k_length;
-layout(location=1) out vec4 normalized_tilde_h0k;
-layout(location=2) out vec4 tilde_h0minusk_length;
-layout(location=3) out vec4 normalized_tilde_h0minusk;
+layout(location=0) out vec4 tilde_h0k;
+layout(location=1) out vec4 tilde_h0minusk;
 
 const float M_PI=3.1415926536;
 const float g=9.81;//Gravitational constant
@@ -58,11 +56,6 @@ void main(){
     float h0minusk=(1.0/sqrt(2.0))*sqrt(Phminusk);
 
     vec4 rnd=GetGaussianRnds();
-    vec4 tilde_h0k=vec4(rnd.xy*h0k,0.0,1.0);
-    vec4 tilde_h0minusk=vec4(rnd.zw*h0minusk,0.0,1.0);
-
-    tilde_h0k_length=vec4(length(tilde_h0k),0.0,0.0,0.0);
-    normalized_tilde_h0k=tilde_h0k/tilde_h0k_length.r;
-    tilde_h0minusk_length=vec4(length(tilde_h0minusk),0.0,0.0,0.0);
-    normalized_tilde_h0minusk=tilde_h0minusk/tilde_h0minusk_length.r;
+    tilde_h0k=vec4(rnd.xy*h0k,0.0,1.0);
+    tilde_h0minusk=vec4(rnd.zw*h0minusk,0.0,1.0);
 }

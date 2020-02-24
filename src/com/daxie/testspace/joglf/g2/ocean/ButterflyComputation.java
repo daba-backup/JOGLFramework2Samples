@@ -5,6 +5,7 @@ import java.nio.IntBuffer;
 
 import com.daxie.joglf.gl.shader.GLShaderFunctions;
 import com.daxie.joglf.gl.shader.ShaderProgram;
+import com.daxie.joglf.gl.transferer.FullscreenQuadTransferer;
 import com.daxie.joglf.gl.wrapper.GLWrapper;
 import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.GL4;
@@ -15,13 +16,10 @@ class ButterflyComputation {
 	
 	private int fbo_id;
 	//Input textures
-	private int butterfly_length_id;
-	private int normalized_butterfly_id;
-	private int pingpong_in_length_id;
-	private int normalized_pingpong_in_id;
-	//Output textures
-	private int pingpong_out_length_id;
-	private int normalized_pingpong_out_id;
+	private int butterfly_texture_id;
+	private int pingpong_in_id;
+	//Output texture
+	private int pingpong_out_id;
 	
 	private ShaderProgram program;
 	private FullscreenQuadTransferer transferer;
@@ -33,19 +31,17 @@ class ButterflyComputation {
 		transferer=new FullscreenQuadTransferer();
 		
 		this.SetupInputTextures();
-		this.SetupOutputTextures();
+		this.SetupOutputTexture();
 		this.SetupFramebuffer();
 		this.SetupProgram();
 	}
 	private void SetupInputTextures() {
-		IntBuffer texture_ids=Buffers.newDirectIntBuffer(4);
-		GLWrapper.glGenTextures(4, texture_ids);
-		butterfly_length_id=texture_ids.get(0);
-		normalized_butterfly_id=texture_ids.get(1);
-		pingpong_in_length_id=texture_ids.get(2);
-		normalized_pingpong_in_id=texture_ids.get(3);
+		IntBuffer texture_ids=Buffers.newDirectIntBuffer(2);
+		GLWrapper.glGenTextures(2, texture_ids);
+		butterfly_texture_id=texture_ids.get(0);
+		pingpong_in_id=texture_ids.get(1);
 		
-		for(int i=0;i<4;i++) {
+		for(int i=0;i<2;i++) {
 			GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, texture_ids.get(i));
 			GLWrapper.glTexParameteri(GL4.GL_TEXTURE_2D, GL4.GL_TEXTURE_MAG_FILTER, GL4.GL_NEAREST);
 			GLWrapper.glTexParameteri(GL4.GL_TEXTURE_2D, GL4.GL_TEXTURE_MIN_FILTER, GL4.GL_NEAREST);
@@ -54,23 +50,20 @@ class ButterflyComputation {
 			GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, 0);
 		}
 	}
-	private void SetupOutputTextures() {
-		IntBuffer texture_ids=Buffers.newDirectIntBuffer(2);
-		GLWrapper.glGenTextures(2, texture_ids);
-		pingpong_out_length_id=texture_ids.get(0);
-		normalized_pingpong_out_id=texture_ids.get(1);
+	private void SetupOutputTexture() {
+		IntBuffer texture_ids=Buffers.newDirectIntBuffer(1);
+		GLWrapper.glGenTextures(1, texture_ids);
+		pingpong_out_id=texture_ids.get(0);
 		
-		for(int i=0;i<2;i++) {
-			GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, texture_ids.get(i));
-			GLWrapper.glTexImage2D(
-					GL4.GL_TEXTURE_2D, 0,GL4.GL_RGBA32F, 
-					N, N, 0, GL4.GL_RGBA, GL4.GL_FLOAT, null);
-			GLWrapper.glTexParameteri(GL4.GL_TEXTURE_2D, GL4.GL_TEXTURE_MAG_FILTER, GL4.GL_NEAREST);
-			GLWrapper.glTexParameteri(GL4.GL_TEXTURE_2D, GL4.GL_TEXTURE_MIN_FILTER, GL4.GL_NEAREST);
-			GLWrapper.glTexParameteri(GL4.GL_TEXTURE_2D, GL4.GL_TEXTURE_WRAP_S, GL4.GL_CLAMP_TO_EDGE);
-			GLWrapper.glTexParameteri(GL4.GL_TEXTURE_2D, GL4.GL_TEXTURE_WRAP_T, GL4.GL_CLAMP_TO_EDGE);
-			GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, 0);
-		}
+		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, pingpong_out_id);
+		GLWrapper.glTexImage2D(
+				GL4.GL_TEXTURE_2D, 0,GL4.GL_RGBA32F, 
+				N, N, 0, GL4.GL_RGBA, GL4.GL_FLOAT, null);
+		GLWrapper.glTexParameteri(GL4.GL_TEXTURE_2D, GL4.GL_TEXTURE_MAG_FILTER, GL4.GL_NEAREST);
+		GLWrapper.glTexParameteri(GL4.GL_TEXTURE_2D, GL4.GL_TEXTURE_MIN_FILTER, GL4.GL_NEAREST);
+		GLWrapper.glTexParameteri(GL4.GL_TEXTURE_2D, GL4.GL_TEXTURE_WRAP_S, GL4.GL_CLAMP_TO_EDGE);
+		GLWrapper.glTexParameteri(GL4.GL_TEXTURE_2D, GL4.GL_TEXTURE_WRAP_T, GL4.GL_CLAMP_TO_EDGE);
+		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, 0);
 	}
 	private void SetupFramebuffer() {
 		IntBuffer fbo_ids=Buffers.newDirectIntBuffer(1);
@@ -78,8 +71,8 @@ class ButterflyComputation {
 		fbo_id=fbo_ids.get(0);
 		
 		GLWrapper.glBindFramebuffer(GL4.GL_FRAMEBUFFER, fbo_id);
-		int[] draw_buffers=new int[] {GL4.GL_COLOR_ATTACHMENT0,GL4.GL_COLOR_ATTACHMENT1};
-		GLWrapper.glDrawBuffers(2, Buffers.newDirectIntBuffer(draw_buffers));
+		int[] draw_buffers=new int[] {GL4.GL_COLOR_ATTACHMENT0};
+		GLWrapper.glDrawBuffers(1, Buffers.newDirectIntBuffer(draw_buffers));
 		GLWrapper.glBindFramebuffer(GL4.GL_FRAMEBUFFER, 0);
 	}
 	private void SetupProgram() {
@@ -90,29 +83,15 @@ class ButterflyComputation {
 		program=new ShaderProgram("butterfly_computation");
 	}
 	
-	public void SetButterflyLength(FloatBuffer buf) {
-		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, butterfly_length_id);
+	public void SetButterflyTexture(FloatBuffer buf) {
+		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, butterfly_texture_id);
 		GLWrapper.glTexImage2D(
 				GL4.GL_TEXTURE_2D, 0,GL4.GL_RGBA32F, 
 				total_stage_num, N, 0, GL4.GL_RGBA, GL4.GL_FLOAT, buf);
 		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, 0);
 	}
-	public void SetNormalizedButterfly(FloatBuffer buf) {
-		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, normalized_butterfly_id);
-		GLWrapper.glTexImage2D(
-				GL4.GL_TEXTURE_2D, 0,GL4.GL_RGBA32F, 
-				total_stage_num, N, 0, GL4.GL_RGBA, GL4.GL_FLOAT, buf);
-		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, 0);
-	}
-	public void SetPingpongInLength(FloatBuffer buf) {
-		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, pingpong_in_length_id);
-		GLWrapper.glTexImage2D(
-				GL4.GL_TEXTURE_2D, 0,GL4.GL_RGBA32F, 
-				N, N, 0, GL4.GL_RGBA, GL4.GL_FLOAT, buf);
-		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, 0);
-	}
-	public void SetNormalizedPingpongIn(FloatBuffer buf) {
-		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, normalized_pingpong_in_id);
+	public void SetPingpongIn(FloatBuffer buf) {
+		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, pingpong_in_id);
 		GLWrapper.glTexImage2D(
 				GL4.GL_TEXTURE_2D, 0,GL4.GL_RGBA32F, 
 				N, N, 0, GL4.GL_RGBA, GL4.GL_FLOAT, buf);
@@ -125,11 +104,8 @@ class ButterflyComputation {
 		program.SetUniform("total_stage_num", total_stage_num);
 		
 		GLWrapper.glActiveTexture(GL4.GL_TEXTURE0);
-		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, butterfly_length_id);
-		program.SetUniform("butterfly_length", 0);
-		GLWrapper.glActiveTexture(GL4.GL_TEXTURE1);
-		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, normalized_butterfly_id);
-		program.SetUniform("normalized_butterfly", 1);
+		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, butterfly_texture_id);
+		program.SetUniform("butterfly_texture", 0);
 		
 		GLWrapper.glBindFramebuffer(GL4.GL_FRAMEBUFFER, fbo_id);
 		
@@ -166,66 +142,38 @@ class ButterflyComputation {
 	private void innerCompute1() {
 		GLWrapper.glFramebufferTexture2D(
 				GL4.GL_FRAMEBUFFER, GL4.GL_COLOR_ATTACHMENT0, 
-				GL4.GL_TEXTURE_2D, pingpong_out_length_id, 0);
-		GLWrapper.glFramebufferTexture2D(
-				GL4.GL_FRAMEBUFFER, GL4.GL_COLOR_ATTACHMENT1, 
-				GL4.GL_TEXTURE_2D, normalized_pingpong_out_id, 0);
+				GL4.GL_TEXTURE_2D, pingpong_out_id, 0);
 		if(GLWrapper.glCheckFramebufferStatus(GL4.GL_FRAMEBUFFER)!=GL4.GL_FRAMEBUFFER_COMPLETE) {
 			System.out.println("ButterflyComputation:Incomplete framebuffer");
 		}
 		
-		GLWrapper.glActiveTexture(GL4.GL_TEXTURE2);
-		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, pingpong_in_length_id);
-		program.SetUniform("pingpong_in_length", 2);
-		GLWrapper.glActiveTexture(GL4.GL_TEXTURE3);
-		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, normalized_pingpong_in_id);
-		program.SetUniform("normalized_pingpong_in", 3);
+		GLWrapper.glActiveTexture(GL4.GL_TEXTURE1);
+		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, pingpong_in_id);
+		program.SetUniform("pingpong_in", 1);
 	}
 	private void innerCompute2() {
 		GLWrapper.glFramebufferTexture2D(
 				GL4.GL_FRAMEBUFFER, GL4.GL_COLOR_ATTACHMENT0, 
-				GL4.GL_TEXTURE_2D, pingpong_in_length_id, 0);
-		GLWrapper.glFramebufferTexture2D(
-				GL4.GL_FRAMEBUFFER, GL4.GL_COLOR_ATTACHMENT1, 
-				GL4.GL_TEXTURE_2D, normalized_pingpong_in_id, 0);
+				GL4.GL_TEXTURE_2D, pingpong_in_id, 0);
 		if(GLWrapper.glCheckFramebufferStatus(GL4.GL_FRAMEBUFFER)!=GL4.GL_FRAMEBUFFER_COMPLETE) {
 			System.out.println("ButterflyComputation:Incomplete framebuffer");
 		}
 		
-		GLWrapper.glActiveTexture(GL4.GL_TEXTURE2);
-		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, pingpong_out_length_id);
-		program.SetUniform("pingpong_in_length", 2);
-		GLWrapper.glActiveTexture(GL4.GL_TEXTURE3);
-		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, normalized_pingpong_out_id);
-		program.SetUniform("normalized_pingpong_in", 3);
+		GLWrapper.glActiveTexture(GL4.GL_TEXTURE1);
+		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, pingpong_out_id);
+		program.SetUniform("pingpong_in", 1);
 	}
 	
-	public FloatBuffer GetOutLength() {
+	public FloatBuffer GetComputationResult() {
 		FloatBuffer buf=Buffers.newDirectFloatBuffer(N*N*4);
 		
 		if(total_stage_num%2==0) {
-			GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, pingpong_in_length_id);
+			GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, pingpong_in_id);
 			GLWrapper.glGetTexImage(GL4.GL_TEXTURE_2D, 0, GL4.GL_RGBA, GL4.GL_FLOAT, buf);
 			GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, 0);
 		}
 		else {
-			GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, pingpong_out_length_id);
-			GLWrapper.glGetTexImage(GL4.GL_TEXTURE_2D, 0, GL4.GL_RGBA, GL4.GL_FLOAT, buf);
-			GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, 0);
-		}
-		
-		return buf;
-	}
-	public FloatBuffer GetNormalizedOut() {
-		FloatBuffer buf=Buffers.newDirectFloatBuffer(N*N*4);
-		
-		if(total_stage_num%2==0) {
-			GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, normalized_pingpong_in_id);
-			GLWrapper.glGetTexImage(GL4.GL_TEXTURE_2D, 0, GL4.GL_RGBA, GL4.GL_FLOAT, buf);
-			GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, 0);
-		}
-		else {
-			GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, normalized_pingpong_out_id);
+			GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, pingpong_out_id);
 			GLWrapper.glGetTexImage(GL4.GL_TEXTURE_2D, 0, GL4.GL_RGBA, GL4.GL_FLOAT, buf);
 			GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, 0);
 		}

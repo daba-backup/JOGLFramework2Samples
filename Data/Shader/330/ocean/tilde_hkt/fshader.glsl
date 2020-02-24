@@ -1,9 +1,7 @@
 #version 330
 
-uniform sampler2D tilde_h0k_length;
-uniform sampler2D normalized_tilde_h0k;
-uniform sampler2D tilde_h0minusk_length;
-uniform sampler2D normalized_tilde_h0minusk;
+uniform sampler2D tilde_h0k;
+uniform sampler2D tilde_h0minusk;
 
 uniform int N;
 uniform int L;
@@ -12,8 +10,7 @@ uniform float t;
 const float M_PI=3.1415926536;
 const float g=9.81;//Gravitational constant
 
-layout(location=0) out vec4 tilde_hkt_length;
-layout(location=1) out vec4 normalized_tilde_hkt;
+layout(location=0) out vec4 tilde_hkt;
 
 struct complex{
     float re;
@@ -56,10 +53,10 @@ void main(){
 
     float w=sqrt(g*mag);
 
-    vec2 tilde_h0k_values=GetTexel(normalized_tilde_h0k,ix).rg*GetTexel(tilde_h0k_length,ix).r;
+    vec2 tilde_h0k_values=GetTexel(tilde_h0k,ix).rg;
     complex fourier_cmp=complex(tilde_h0k_values.x,tilde_h0k_values.y);
 
-    vec2 tilde_h0minusk_values=GetTexel(normalized_tilde_h0minusk,ix).rg*GetTexel(tilde_h0minusk_length,ix).r;
+    vec2 tilde_h0minusk_values=GetTexel(tilde_h0minusk,ix).rg;
     complex fourier_cmp_conj=conj(complex(tilde_h0minusk_values.x,tilde_h0minusk_values.y));
 
     float cos_wt=cos(w*t);
@@ -70,9 +67,5 @@ void main(){
 
     complex hkt=add(mul(fourier_cmp,exp_jwt),mul(fourier_cmp_conj,exp_jwt_conj));
     
-    vec4 tilde_hkt=vec4(hkt.re,hkt.im,0.0,1.0);
-    tilde_hkt_length=vec4(length(tilde_hkt),0.0,0.0,0.0);
-    normalized_tilde_hkt=tilde_hkt/tilde_hkt_length.r;
+    tilde_hkt=vec4(hkt.re,hkt.im,0.0,1.0);
 }
-
-
