@@ -25,12 +25,12 @@
 		<dependency>
 			<groupId>com.github.dabasan</groupId>
 			<artifactId>joglframework-gl</artifactId>
-			<version>9.1.0</version>
+			<version>9.2.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>com.github.dabasan</groupId>
 			<artifactId>joglframework-al</artifactId>
-			<version>9.1.0</version>
+			<version>9.2.0-SNAPSHOT</version>
 		</dependency>
 
 		<dependency>
