@@ -112,7 +112,7 @@ class ButterflyTextureGeneration {
 		program.Enable();
 		program.SetUniform("N", N);
 		
-		GLWrapper.glViewport(0, 0, N, N);
+		GLWrapper.glViewport(0, 0, output_texture_width, N);
 		GLWrapper.glBindFramebuffer(GL4.GL_FRAMEBUFFER, fbo_id);
 		GLWrapper.glActiveTexture(GL4.GL_TEXTURE0);
 		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, bit_reversed_indices_id);
@@ -127,6 +127,8 @@ class ButterflyTextureGeneration {
 		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, out_color_length_id);
 		GLWrapper.glGetTexImage(GL4.GL_TEXTURE_2D, 0, GL4.GL_RGBA, GL4.GL_FLOAT, buf);
 		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, 0);
+		
+		System.out.println(buf.get(12));
 		
 		return buf;
 	}

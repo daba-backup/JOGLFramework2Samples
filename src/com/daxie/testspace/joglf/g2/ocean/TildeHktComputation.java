@@ -58,7 +58,7 @@ class TildeHktComputation {
 		IntBuffer texture_ids=Buffers.newDirectIntBuffer(2);
 		GLWrapper.glGenTextures(2, texture_ids);
 		tilde_hkt_length_id=texture_ids.get(0);
-		normalized_tilde_h0k_id=texture_ids.get(1);
+		normalized_tilde_hkt_id=texture_ids.get(1);
 		
 		for(int i=0;i<2;i++) {
 			GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, texture_ids.get(i));

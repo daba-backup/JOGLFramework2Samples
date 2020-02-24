@@ -71,7 +71,7 @@ void main(){
     complex hkt=add(mul(fourier_cmp,exp_jwt),mul(fourier_cmp_conj,exp_jwt_conj));
     
     vec4 tilde_hkt=vec4(hkt.re,hkt.im,0.0,1.0);
-    tilde_hkt_length=vec4(length(tilde_hkt),0.0,0.0,1.0);
+    tilde_hkt_length=vec4(length(tilde_hkt),0.0,0.0,0.0);
     normalized_tilde_hkt=tilde_hkt/tilde_hkt_length.r;
 }
 

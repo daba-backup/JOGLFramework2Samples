@@ -61,8 +61,8 @@ void main(){
     vec4 tilde_h0k=vec4(rnd.xy*h0k,0.0,1.0);
     vec4 tilde_h0minusk=vec4(rnd.zw*h0minusk,0.0,1.0);
 
-    tilde_h0k_length=vec4(length(tilde_h0k),0.0,0.0,1.0);
+    tilde_h0k_length=vec4(length(tilde_h0k),0.0,0.0,0.0);
     normalized_tilde_h0k=tilde_h0k/tilde_h0k_length.r;
-    tilde_h0minusk_length=vec4(length(tilde_h0minusk),0.0,0.0,1.0);
-    normalized_tilde_h0minusk=tilde_h0minusk/tilde_h0minusk.r;
+    tilde_h0minusk_length=vec4(length(tilde_h0minusk),0.0,0.0,0.0);
+    normalized_tilde_h0minusk=tilde_h0minusk/tilde_h0minusk_length.r;
 }

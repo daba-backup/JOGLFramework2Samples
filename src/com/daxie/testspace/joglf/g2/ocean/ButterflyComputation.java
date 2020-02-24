@@ -78,15 +78,6 @@ class ButterflyComputation {
 		fbo_id=fbo_ids.get(0);
 		
 		GLWrapper.glBindFramebuffer(GL4.GL_FRAMEBUFFER, fbo_id);
-		GLWrapper.glFramebufferTexture2D(
-				GL4.GL_FRAMEBUFFER, GL4.GL_COLOR_ATTACHMENT0, 
-				GL4.GL_TEXTURE_2D, pingpong_out_length_id, 0);
-		GLWrapper.glFramebufferTexture2D(
-				GL4.GL_FRAMEBUFFER, GL4.GL_COLOR_ATTACHMENT1, 
-				GL4.GL_TEXTURE_2D, normalized_pingpong_out_id, 0);
-		if(GLWrapper.glCheckFramebufferStatus(GL4.GL_FRAMEBUFFER)!=GL4.GL_FRAMEBUFFER_COMPLETE) {
-			System.out.println("TildeH0kComputation:Incomplete framebuffer");
-		}
 		int[] draw_buffers=new int[] {GL4.GL_COLOR_ATTACHMENT0,GL4.GL_COLOR_ATTACHMENT1};
 		GLWrapper.glDrawBuffers(2, Buffers.newDirectIntBuffer(draw_buffers));
 		GLWrapper.glBindFramebuffer(GL4.GL_FRAMEBUFFER, 0);

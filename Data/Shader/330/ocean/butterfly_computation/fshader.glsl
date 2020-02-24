@@ -106,6 +106,6 @@ void main(){
         color=VerticalButterflies();
     }
 
-    pingpong_out_length=vec4(length(color),0.0,0.0,1.0);
+    pingpong_out_length=vec4(length(color),0.0,0.0,0.0);
     normalized_pingpong_out=color/pingpong_out_length.r;
 }

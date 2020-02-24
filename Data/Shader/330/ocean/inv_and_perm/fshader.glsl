@@ -22,6 +22,6 @@ void main(){
 
     float h=GetTexelR(x)*perm/float(N*N);
     vec4 heightmap=vec4(h,h,h,1.0);
-    heightmap_length=vec4(length(heightmap),0.0,0.0,1.0);
+    heightmap_length=vec4(length(heightmap),0.0,0.0,0.0);
     normalized_heightmap=heightmap/heightmap_length.r;
 }

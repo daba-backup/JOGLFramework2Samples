@@ -59,6 +59,6 @@ void main(){
         }
     }
 
-    out_color_length=vec4(length(out_color),0.0,0.0,1.0);
+    out_color_length=vec4(length(out_color),0.0,0.0,0.0);
     normalized_out_color=out_color/out_color_length.r;
 }
