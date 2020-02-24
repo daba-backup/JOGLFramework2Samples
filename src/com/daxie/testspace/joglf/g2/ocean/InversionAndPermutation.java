@@ -98,7 +98,7 @@ public class InversionAndPermutation {
 		GLWrapper.glBindFramebuffer(GL4.GL_FRAMEBUFFER, fbo_id);
 		GLWrapper.glActiveTexture(GL4.GL_TEXTURE0);
 		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, input_texture_id);
-		program.SetUniform("input_length", 0);
+		program.SetUniform("input_texture", 0);
 		transferer.Transfer();
 		GLWrapper.glBindFramebuffer(GL4.GL_FRAMEBUFFER, 0);
 	}
