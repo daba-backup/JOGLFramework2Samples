@@ -1,6 +1,5 @@
 package com.daxie.testspace.joglf.g2.ocean;
 
-import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
 import com.daxie.joglf.gl.shader.GLShaderFunctions;
@@ -25,24 +24,11 @@ class InversionAndPermutation {
 	public InversionAndPermutation(int N) {
 		this.N=N;
 		
-		this.SetupInputTexture();
 		this.SetupOutputTexture();
 		this.SetupFramebuffer();
 		this.SetupProgram();
 		
 		transferrer=new FullscreenQuadTransferrer();
-	}
-	private void SetupInputTexture() {
-		IntBuffer texture_ids=Buffers.newDirectIntBuffer(1);
-		GLWrapper.glGenTextures(1, texture_ids);
-		input_texture_id=texture_ids.get(0);
-		
-		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, input_texture_id);
-		GLWrapper.glTexParameteri(GL4.GL_TEXTURE_2D, GL4.GL_TEXTURE_MAG_FILTER, GL4.GL_NEAREST);
-		GLWrapper.glTexParameteri(GL4.GL_TEXTURE_2D, GL4.GL_TEXTURE_MIN_FILTER, GL4.GL_NEAREST);
-		GLWrapper.glTexParameteri(GL4.GL_TEXTURE_2D, GL4.GL_TEXTURE_WRAP_S, GL4.GL_CLAMP_TO_EDGE);
-		GLWrapper.glTexParameteri(GL4.GL_TEXTURE_2D, GL4.GL_TEXTURE_WRAP_T, GL4.GL_CLAMP_TO_EDGE);
-		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, 0);
 	}
 	private void SetupOutputTexture() {
 		IntBuffer texture_ids=Buffers.newDirectIntBuffer(1);
@@ -83,12 +69,8 @@ class InversionAndPermutation {
 		program=new ShaderProgram("inv_and_perm");
 	}
 	
-	public void SetInputTexture(FloatBuffer buf) {
-		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, input_texture_id);
-		GLWrapper.glTexImage2D(
-				GL4.GL_TEXTURE_2D, 0,GL4.GL_RGBA32F, 
-				N, N, 0, GL4.GL_RGBA, GL4.GL_FLOAT, buf);
-		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, 0);
+	public void SetInputTexture(int input_texture_id) {
+		this.input_texture_id=input_texture_id;
 	}
 	
 	public void Compute() {
@@ -103,13 +85,7 @@ class InversionAndPermutation {
 		GLWrapper.glBindFramebuffer(GL4.GL_FRAMEBUFFER, 0);
 	}
 	
-	public FloatBuffer GetHeightmap() {
-		FloatBuffer buf=Buffers.newDirectFloatBuffer(N*N*4);
-		
-		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, heightmap_id);
-		GLWrapper.glGetTexImage(GL4.GL_TEXTURE_2D, 0, GL4.GL_RGBA, GL4.GL_FLOAT, buf);
-		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, 0);
-		
-		return buf;
+	public int GetHeightmap() {
+		return heightmap_id;
 	}
 }

@@ -1,7 +1,6 @@
 package com.daxie.testspace.joglf.g2.ocean;
 
 import java.nio.Buffer;
-import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
 import com.daxie.joglf.gl.shader.GLShaderFunctions;
@@ -117,13 +116,7 @@ class ButterflyTextureGeneration {
 		GLWrapper.glBindFramebuffer(GL4.GL_FRAMEBUFFER, 0);
 	}
 	
-	public FloatBuffer GetOutColor() {
-		FloatBuffer buf=Buffers.newDirectFloatBuffer(output_texture_width*N*4);
-		
-		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, out_color_id);
-		GLWrapper.glGetTexImage(GL4.GL_TEXTURE_2D, 0, GL4.GL_RGBA, GL4.GL_FLOAT, buf);
-		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, 0);
-		
-		return buf;
+	public int GetOutColor() {
+		return out_color_id;
 	}
 }

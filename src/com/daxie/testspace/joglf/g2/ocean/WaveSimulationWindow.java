@@ -17,9 +17,9 @@ class WaveSimulationWindow extends JOGLFWindow{
 	private ButterflyComputation butterfly_computation;
 	private InversionAndPermutation inv_and_perm;
 	
-	private static final int N=512;
+	private static final int N=256;
 	
-	private int heightmap_id;
+	private int b_heightmap_id;
 	
 	private ShaderProgram program;
 	private FullscreenQuadTransferrerWithUV transferrer;
@@ -49,9 +49,9 @@ class WaveSimulationWindow extends JOGLFWindow{
 	private void SetupHeightmap() {
 		IntBuffer texture_ids=Buffers.newDirectIntBuffer(1);
 		GLWrapper.glGenTextures(1, texture_ids);
-		heightmap_id=texture_ids.get(0);
+		b_heightmap_id=texture_ids.get(0);
 		
-		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, heightmap_id);
+		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, b_heightmap_id);
 		GLWrapper.glTexParameteri(GL4.GL_TEXTURE_2D, GL4.GL_TEXTURE_MAG_FILTER, GL4.GL_NEAREST);
 		GLWrapper.glTexParameteri(GL4.GL_TEXTURE_2D, GL4.GL_TEXTURE_MIN_FILTER, GL4.GL_NEAREST);
 		GLWrapper.glTexParameteri(GL4.GL_TEXTURE_2D, GL4.GL_TEXTURE_WRAP_S, GL4.GL_CLAMP_TO_EDGE);
@@ -73,7 +73,12 @@ class WaveSimulationWindow extends JOGLFWindow{
 		inv_and_perm.SetInputTexture(butterfly_computation.GetComputationResult());
 		inv_and_perm.Compute();
 		
-		FloatBuffer heightmap=inv_and_perm.GetHeightmap();
+		int heightmap_id=inv_and_perm.GetHeightmap();
+		FloatBuffer heightmap=Buffers.newDirectFloatBuffer(N*N*4);
+		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, heightmap_id);
+		GLWrapper.glGetTexImage(GL4.GL_TEXTURE_2D, 0, GL4.GL_RGBA, GL4.GL_FLOAT, heightmap);
+		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, 0);
+		
 		ByteBuffer b_heightmap=Buffers.newDirectByteBuffer(N*N*4);
 		
 		int size=N*N*4;
@@ -91,7 +96,7 @@ class WaveSimulationWindow extends JOGLFWindow{
 		}
 		((Buffer)b_heightmap).flip();
 		
-		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, heightmap_id);
+		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, b_heightmap_id);
 		GLWrapper.glTexImage2D(
 				GL4.GL_TEXTURE_2D, 0,GL4.GL_RGBA, 
 				N, N, 0, GL4.GL_RGBA, GL4.GL_UNSIGNED_BYTE, b_heightmap);
@@ -103,7 +108,7 @@ class WaveSimulationWindow extends JOGLFWindow{
 		program.Enable();
 		GLWrapper.glViewport(0, 0, this.GetWidth(), this.GetHeight());
 		GLWrapper.glActiveTexture(GL4.GL_TEXTURE0);
-		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, heightmap_id);
+		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, b_heightmap_id);
 		program.SetUniform("texture_sampler", 0);
 		transferrer.Transfer();
 		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, 0);

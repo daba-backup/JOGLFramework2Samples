@@ -1,6 +1,5 @@
 package com.daxie.testspace.joglf.g2.ocean;
 
-import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
 import com.daxie.joglf.gl.shader.GLShaderFunctions;
@@ -31,27 +30,11 @@ class TildeHktComputation {
 		L=1000;
 		t=0.0f;
 		
-		this.SetupInputTextures();
 		this.SetupOutputTexture();
 		this.SetupFramebuffer();
 		this.SetupProgram();
 		
 		transferrer=new FullscreenQuadTransferrer();
-	}
-	private void SetupInputTextures() {
-		IntBuffer texture_ids=Buffers.newDirectIntBuffer(2);
-		GLWrapper.glGenTextures(2, texture_ids);
-		tilde_h0k_id=texture_ids.get(0);
-		tilde_h0minusk_id=texture_ids.get(1);
-		
-		for(int i=0;i<2;i++) {
-			GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, texture_ids.get(i));
-			GLWrapper.glTexParameteri(GL4.GL_TEXTURE_2D, GL4.GL_TEXTURE_MAG_FILTER, GL4.GL_NEAREST);
-			GLWrapper.glTexParameteri(GL4.GL_TEXTURE_2D, GL4.GL_TEXTURE_MIN_FILTER, GL4.GL_NEAREST);
-			GLWrapper.glTexParameteri(GL4.GL_TEXTURE_2D, GL4.GL_TEXTURE_WRAP_S, GL4.GL_CLAMP_TO_EDGE);
-			GLWrapper.glTexParameteri(GL4.GL_TEXTURE_2D, GL4.GL_TEXTURE_WRAP_T, GL4.GL_CLAMP_TO_EDGE);
-			GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, 0);
-		}
 	}
 	private void SetupOutputTexture() {
 		IntBuffer texture_ids=Buffers.newDirectIntBuffer(1);
@@ -98,19 +81,11 @@ class TildeHktComputation {
 	public void AdvanceTime(float dt) {
 		t+=dt;
 	}
-	public void SetTildeH0k(FloatBuffer buf) {
-		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, tilde_h0k_id);
-		GLWrapper.glTexImage2D(
-				GL4.GL_TEXTURE_2D, 0,GL4.GL_RGBA32F, 
-				N, N, 0, GL4.GL_RGBA, GL4.GL_FLOAT, buf);
-		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, 0);
+	public void SetTildeH0k(int tilde_h0k_id) {
+		this.tilde_h0k_id=tilde_h0k_id;
 	}
-	public void SetTildeH0minusk(FloatBuffer buf) {
-		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, tilde_h0minusk_id);
-		GLWrapper.glTexImage2D(
-				GL4.GL_TEXTURE_2D, 0,GL4.GL_RGBA32F, 
-				N, N, 0, GL4.GL_RGBA, GL4.GL_FLOAT, buf);
-		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, 0);
+	public void SetTildeH0minusk(int tilde_h0minusk_id) {
+		this.tilde_h0minusk_id=tilde_h0minusk_id;
 	}
 	
 	public void Compute() {
@@ -131,13 +106,7 @@ class TildeHktComputation {
 		GLWrapper.glBindFramebuffer(GL4.GL_FRAMEBUFFER, 0);
 	}
 	
-	public FloatBuffer GetTildeHkt() {
-		FloatBuffer buf=Buffers.newDirectFloatBuffer(N*N*4);
-		
-		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, tilde_hkt_id);
-		GLWrapper.glGetTexImage(GL4.GL_TEXTURE_2D, 0, GL4.GL_RGBA, GL4.GL_FLOAT, buf);
-		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, 0);
-		
-		return buf;
+	public int GetTildeHkt() {
+		return tilde_hkt_id;
 	}
 }

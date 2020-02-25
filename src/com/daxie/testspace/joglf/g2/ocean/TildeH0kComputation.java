@@ -141,22 +141,10 @@ class TildeH0kComputation {
 		GLWrapper.glBindFramebuffer(GL4.GL_FRAMEBUFFER, 0);
 	}
 	
-	public FloatBuffer GetTildeH0k() {
-		FloatBuffer buf=Buffers.newDirectFloatBuffer(N*N*4);
-		
-		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, tilde_h0k_id);
-		GLWrapper.glGetTexImage(GL4.GL_TEXTURE_2D, 0, GL4.GL_RGBA, GL4.GL_FLOAT, buf);
-		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, 0);
-		
-		return buf;
+	public int GetTildeH0k() {
+		return tilde_h0k_id;
 	}
-	public FloatBuffer GetTildeH0minusk() {
-		FloatBuffer buf=Buffers.newDirectFloatBuffer(N*N*4);
-		
-		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, tilde_h0minusk_id);
-		GLWrapper.glGetTexImage(GL4.GL_TEXTURE_2D, 0, GL4.GL_RGBA, GL4.GL_FLOAT, buf);
-		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, 0);
-		
-		return buf;
+	public int GetTildeH0minusk() {
+		return tilde_h0minusk_id;
 	}
 }
