@@ -40,6 +40,9 @@ class WaveSimulationWindow extends JOGLFWindow{
 		butterfly_texture_generation.Compute();
 		
 		butterfly_computation.SetButterflyTexture(butterfly_texture_generation.GetOutColor());
+		butterfly_computation.SetPingpongIn(tilde_hkt_computation.GetTildeHkt());
+		
+		inv_and_perm.SetInputTexture(butterfly_computation.GetComputationResult());
 		
 		this.SetupHeightmap();
 		this.SetupProgram();
@@ -67,10 +70,8 @@ class WaveSimulationWindow extends JOGLFWindow{
 		tilde_hkt_computation.Compute();
 		tilde_hkt_computation.AdvanceTime(1.0f/30.0f);
 		
-		butterfly_computation.SetPingpongIn(tilde_hkt_computation.GetTildeHkt());
 		butterfly_computation.Compute();
 		
-		inv_and_perm.SetInputTexture(butterfly_computation.GetComputationResult());
 		inv_and_perm.Compute();
 		
 		int heightmap_id=inv_and_perm.GetHeightmap();
