@@ -17,7 +17,7 @@ import com.daxie.tool.FileFunctions;
 import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.GL4;
 
-public class BoxMullerMethodTestWindow extends JOGLFWindow{
+class BoxMullerMethodTestWindow extends JOGLFWindow{
 	private int fbo_id;
 	private int input_texture_id;
 	private int output_texture_id;

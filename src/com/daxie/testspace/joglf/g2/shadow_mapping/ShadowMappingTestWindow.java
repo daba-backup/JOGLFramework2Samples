@@ -19,7 +19,7 @@ import com.daxie.joglf.gl.wrapper.GLWrapper;
 import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.GL4;
 
-public class ShadowMappingTestWindow extends JOGLFWindow{
+class ShadowMappingTestWindow extends JOGLFWindow{
 	private int fbo_id;
 	private int texture_id;
 	

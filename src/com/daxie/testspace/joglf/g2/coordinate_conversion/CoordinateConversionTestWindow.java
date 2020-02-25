@@ -9,7 +9,7 @@ import com.daxie.joglf.gl.front.CameraFront;
 import com.daxie.joglf.gl.tool.CoordinateFunctions;
 import com.daxie.joglf.gl.window.JOGLFWindow;
 
-public class CoordinateConversionTestWindow extends JOGLFWindow{
+class CoordinateConversionTestWindow extends JOGLFWindow{
 	@Override
 	protected void Draw() {
 		this.WorldPosToScreenPosTest();

@@ -9,7 +9,7 @@ import com.daxie.joglf.gl.draw.GLDrawFunctions3D;
 import com.daxie.joglf.gl.front.CameraFront;
 import com.daxie.joglf.gl.window.JOGLFWindow;
 
-public class ThreeDSoundTestWindow extends JOGLFWindow{
+class ThreeDSoundTestWindow extends JOGLFWindow{
 	public ThreeDSoundTestWindow() {
 		
 	}

@@ -20,7 +20,7 @@ import com.daxie.tool.MathFunctions;
 import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.GL4;
 
-public class ShadowMappingTestWindow2 extends JOGLFWindow{
+class ShadowMappingTestWindow2 extends JOGLFWindow{
 	private int fbo_id;
 	private int texture_id;
 	

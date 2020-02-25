@@ -3,7 +3,7 @@ package com.daxie.testspace.joglf.g2.window;
 import com.daxie.joglf.gl.window.JOGLFWindow;
 
 //Extend JOGLFWindow and make MyWindow.
-public class MyWindow extends JOGLFWindow{
+class MyWindow extends JOGLFWindow{
 	public MyWindow() {
 		
 	}

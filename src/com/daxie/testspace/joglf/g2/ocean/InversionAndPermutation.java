@@ -10,7 +10,7 @@ import com.daxie.joglf.gl.wrapper.GLWrapper;
 import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.GL4;
 
-public class InversionAndPermutation {
+class InversionAndPermutation {
 	private int N;
 	
 	private int fbo_id;

@@ -30,7 +30,7 @@ import com.daxie.joglf.gl.model.Model3D;
 import com.daxie.joglf.gl.window.JOGLFWindow;
 
 //Simulation of a static plane and boxes.
-public class JBulletTestWindow2 extends JOGLFWindow{
+class JBulletTestWindow2 extends JOGLFWindow{
 	private float seconds_per_frame;
 	
 	private DiscreteDynamicsWorld dynamics_world;

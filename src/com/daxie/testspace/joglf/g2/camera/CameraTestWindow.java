@@ -7,7 +7,7 @@ import com.daxie.joglf.gl.model.Model3D;
 import com.daxie.joglf.gl.window.JOGLFWindow;
 import com.daxie.tool.MathFunctions;
 
-public class CameraTestWindow extends JOGLFWindow{
+class CameraTestWindow extends JOGLFWindow{
 	private Vector camera_position;
 	private float camera_h_rot;
 	

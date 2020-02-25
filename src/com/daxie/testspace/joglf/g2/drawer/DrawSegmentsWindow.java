@@ -13,7 +13,7 @@ import com.daxie.joglf.gl.shape.Vertex3D;
 import com.daxie.joglf.gl.window.JOGLFWindow;
 import com.daxie.tool.MathFunctions;
 
-public class DrawSegmentsWindow extends JOGLFWindow{
+class DrawSegmentsWindow extends JOGLFWindow{
 	private Vector camera_position;
 	private DynamicSegmentsDrawer drawer;
 	

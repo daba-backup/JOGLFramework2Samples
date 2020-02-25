@@ -13,7 +13,7 @@ import com.daxie.joglf.gl.shader.GLShaderFunctions;
 import com.daxie.joglf.gl.window.JOGLFWindow;
 import com.daxie.tool.MathFunctions;
 
-public class PhongShadingWindow extends JOGLFWindow{
+class PhongShadingWindow extends JOGLFWindow{
 	private int model_handle;
 	
 	private Vector camera_position;

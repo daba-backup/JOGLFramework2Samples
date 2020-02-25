@@ -12,7 +12,7 @@ import com.daxie.joglf.gl.front.CameraFront;
 import com.daxie.joglf.gl.window.WindowCommonInfoStock;
 import com.daxie.tool.MathFunctions;
 
-public class KinematicCamera extends KinematicCharacterController{
+class KinematicCamera extends KinematicCharacterController{
 	private float camera_h_rot;
 	private float camera_v_rot;
 	

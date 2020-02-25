@@ -9,7 +9,7 @@ import com.daxie.basis.vector.Vector;
 import com.daxie.basis.vector.VectorFunctions;
 import com.daxie.joglf.gl.model.Model3D;
 
-public class ExtendedRigidBody extends RigidBody{
+class ExtendedRigidBody extends RigidBody{
 	private int model_handle;
 	
 	private Vector prev_origin;

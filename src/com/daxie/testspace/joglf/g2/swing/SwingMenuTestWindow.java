@@ -21,7 +21,7 @@ import com.daxie.joglf.gl.front.CameraFront;
 import com.daxie.joglf.gl.window.JOGLFSwingWindow;
 import com.daxie.tool.MathFunctions;
 
-public class SwingMenuTestWindow extends JOGLFSwingWindow implements ActionListener{
+class SwingMenuTestWindow extends JOGLFSwingWindow implements ActionListener{
 	public SwingMenuTestWindow() {
 		
 	}

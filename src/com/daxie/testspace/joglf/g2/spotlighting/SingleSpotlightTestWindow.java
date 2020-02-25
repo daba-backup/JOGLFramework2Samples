@@ -11,7 +11,7 @@ import com.daxie.joglf.gl.shader.ShaderProgram;
 import com.daxie.joglf.gl.window.JOGLFWindow;
 import com.daxie.tool.MathFunctions;
 
-public class SingleSpotlightTestWindow extends JOGLFWindow{
+class SingleSpotlightTestWindow extends JOGLFWindow{
 	private Vector camera_position;
 	
 	private Vector light_position;

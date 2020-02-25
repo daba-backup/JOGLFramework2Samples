@@ -12,7 +12,7 @@ import com.daxie.joglf.gl.model.Model3D;
 import com.daxie.joglf.gl.window.JOGLFWindow;
 import com.daxie.tool.MathFunctions;
 
-public class LightingTestWindow extends JOGLFWindow{
+class LightingTestWindow extends JOGLFWindow{
 	private Vector light_position;
 	private Vector camera_position;
 	

@@ -17,7 +17,7 @@ import com.daxie.joglf.gl.wrapper.GLWrapper;
 import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.GL4;
 
-public class DepthTextureTestWindow extends JOGLFWindow{
+class DepthTextureTestWindow extends JOGLFWindow{
 	private int fbo_id;
 	private int texture_id;
 	

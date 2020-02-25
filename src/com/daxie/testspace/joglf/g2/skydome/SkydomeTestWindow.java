@@ -6,7 +6,7 @@ import com.daxie.joglf.gl.model.Model3D;
 import com.daxie.joglf.gl.shader.GLShaderFunctions;
 import com.daxie.joglf.gl.window.JOGLFWindow;
 
-public class SkydomeTestWindow extends JOGLFWindow{
+class SkydomeTestWindow extends JOGLFWindow{
 	private int model_handle;
 	private int skydome_handle;
 	

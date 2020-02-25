@@ -6,7 +6,7 @@ import com.daxie.joglf.gl.shader.GLShaderFunctions;
 import com.daxie.joglf.gl.shader.ShaderProgram;
 import com.daxie.joglf.gl.window.JOGLFWindow;
 
-public class DrawMandelbrotSetWindow extends JOGLFWindow{
+class DrawMandelbrotSetWindow extends JOGLFWindow{
 	private ShaderProgram program;
 	
 	private float scale;

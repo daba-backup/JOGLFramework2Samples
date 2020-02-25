@@ -31,7 +31,7 @@ import com.daxie.joglf.gl.shape.Vertex3D;
 import com.daxie.joglf.gl.window.JOGLFWindow;
 
 //Simulation of a 3D model and boxes.
-public class JBulletTestWindow3 extends JOGLFWindow{
+class JBulletTestWindow3 extends JOGLFWindow{
 	private float seconds_per_frame;
 	
 	private DiscreteDynamicsWorld dynamics_world;

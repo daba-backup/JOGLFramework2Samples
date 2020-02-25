@@ -5,7 +5,7 @@ import com.daxie.joglf.gl.front.GLFront;
 import com.daxie.joglf.gl.window.JOGLFWindow;
 import com.daxie.joglf.gl.wrapper.GLVersion;
 
-public class SetWindowProperties {
+class SetWindowProperties {
 	public static void main(String[] args) {
 		new SetWindowProperties();
 	}

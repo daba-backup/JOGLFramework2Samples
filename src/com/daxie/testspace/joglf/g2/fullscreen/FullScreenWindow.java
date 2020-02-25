@@ -6,7 +6,7 @@ import com.daxie.joglf.gl.text.TextMgr;
 import com.daxie.joglf.gl.window.JOGLFWindow;
 import com.daxie.joglf.gl.window.WindowMode;
 
-public class FullScreenWindow extends JOGLFWindow{
+class FullScreenWindow extends JOGLFWindow{
 	public FullScreenWindow() {
 		
 	}

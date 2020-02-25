@@ -17,7 +17,7 @@ import com.daxie.tool.MathFunctions;
 import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.GL4;
 
-public class MultiviewWindow extends JOGLFWindow{
+class MultiviewWindow extends JOGLFWindow{
 	private IntBuffer fbo_ids;
 	private IntBuffer renderbuffer_ids;
 	private IntBuffer texture_ids;

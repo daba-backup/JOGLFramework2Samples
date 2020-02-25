@@ -6,7 +6,7 @@ import com.daxie.joglf.gl.front.FogFront;
 import com.daxie.joglf.gl.model.Model3D;
 import com.daxie.joglf.gl.window.JOGLFWindow;
 
-public class FogTestWindow extends JOGLFWindow{
+class FogTestWindow extends JOGLFWindow{
 	private int model_handle;
 	
 	@Override

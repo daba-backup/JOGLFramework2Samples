@@ -8,7 +8,7 @@ import com.daxie.joglf.gl.model.Model3D;
 import com.daxie.joglf.gl.window.JOGLFWindow;
 import com.daxie.tool.MathFunctions;
 
-public class ModelViewerWindow extends JOGLFWindow{
+class ModelViewerWindow extends JOGLFWindow{
 	private int model_handle;
 	
 	private Vector camera_position;

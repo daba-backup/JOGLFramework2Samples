@@ -32,7 +32,7 @@ import com.daxie.joglf.gl.shape.Sphere;
 import com.daxie.joglf.gl.window.JOGLFWindow;
 
 //Simulation of a static plane and spheres.
-public class JBulletTestWindow extends JOGLFWindow{
+class JBulletTestWindow extends JOGLFWindow{
 	private float seconds_per_frame;
 	
 	private DiscreteDynamicsWorld dynamics_world;

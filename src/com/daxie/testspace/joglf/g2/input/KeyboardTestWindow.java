@@ -6,7 +6,7 @@ import com.daxie.joglf.gl.draw.GLDrawFunctions3D;
 import com.daxie.joglf.gl.input.keyboard.KeyboardEnum;
 import com.daxie.joglf.gl.window.JOGLFWindow;
 
-public class KeyboardTestWindow extends JOGLFWindow{
+class KeyboardTestWindow extends JOGLFWindow{
 	public KeyboardTestWindow() {
 		
 	}

@@ -12,7 +12,7 @@ import com.daxie.joglf.gl.wrapper.GLWrapper;
 import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.GL4;
 
-public class WaveSimulationWindow extends JOGLFWindow{
+class WaveSimulationWindow extends JOGLFWindow{
 	private TildeHktComputation tilde_hkt_computation;
 	private ButterflyComputation butterfly_computation;
 	private InversionAndPermutation inv_and_perm;

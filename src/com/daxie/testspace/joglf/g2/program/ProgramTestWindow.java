@@ -5,7 +5,7 @@ import com.daxie.joglf.gl.shader.GLShaderFunctions;
 import com.daxie.joglf.gl.shader.ShaderProgram;
 import com.daxie.joglf.gl.window.JOGLFWindow;
 
-public class ProgramTestWindow extends JOGLFWindow{
+class ProgramTestWindow extends JOGLFWindow{
 	private ShaderProgram program;
 	
 	@Override

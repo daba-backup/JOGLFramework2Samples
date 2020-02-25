@@ -4,7 +4,7 @@ import com.daxie.joglf.al.player.mp3.MP3Player;
 import com.daxie.joglf.gl.input.keyboard.KeyboardEnum;
 import com.daxie.joglf.gl.window.JOGLFWindow;
 
-public class MP3PlayerTestWindow extends JOGLFWindow{
+class MP3PlayerTestWindow extends JOGLFWindow{
 	public MP3PlayerTestWindow() {
 		
 	}

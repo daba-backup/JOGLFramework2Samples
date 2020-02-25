@@ -34,7 +34,7 @@ import com.daxie.joglf.gl.shape.Vertex3D;
 import com.daxie.joglf.gl.window.JOGLFWindow;
 import com.daxie.tool.MathFunctions;
 
-public class FirstPersonViewerWindow extends JOGLFWindow{
+class FirstPersonViewerWindow extends JOGLFWindow{
 	private float seconds_per_frame;
 	
 	private DiscreteDynamicsWorld dynamics_world;

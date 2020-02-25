@@ -17,7 +17,7 @@ import com.daxie.tool.MathFunctions;
 import com.daxie.xops.pd1.PD1Manipulator;
 import com.daxie.xops.pd1.PD1Point;
 
-public class DrawPD1PointsWindow extends JOGLFWindow{
+class DrawPD1PointsWindow extends JOGLFWindow{
 	private int model_handle;
 	private DynamicSegmentsDrawer drawer;
 	

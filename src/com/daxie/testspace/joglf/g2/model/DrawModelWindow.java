@@ -5,7 +5,7 @@ import com.daxie.joglf.gl.front.CameraFront;
 import com.daxie.joglf.gl.model.Model3D;
 import com.daxie.joglf.gl.window.JOGLFWindow;
 
-public class DrawModelWindow extends JOGLFWindow{
+class DrawModelWindow extends JOGLFWindow{
 	private int model_handle;
 	
 	@Override

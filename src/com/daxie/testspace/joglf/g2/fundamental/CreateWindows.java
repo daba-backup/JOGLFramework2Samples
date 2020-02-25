@@ -4,7 +4,7 @@ import com.daxie.joglf.gl.front.GLFront;
 import com.daxie.joglf.gl.window.JOGLFWindow;
 import com.daxie.joglf.gl.wrapper.GLVersion;
 
-public class CreateWindows {
+class CreateWindows {
 	public static void main(String[] args) {
 		new CreateWindows();
 	}

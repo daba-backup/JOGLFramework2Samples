@@ -5,7 +5,7 @@ import com.daxie.joglf.gl.shader.GLShaderFunctions;
 import com.daxie.joglf.gl.shader.ShaderProgram;
 import com.daxie.joglf.gl.window.JOGLFWindow;
 
-public class RayMarchingTestWindow extends JOGLFWindow{
+class RayMarchingTestWindow extends JOGLFWindow{
 	private ShaderProgram program;
 	
 	@Override

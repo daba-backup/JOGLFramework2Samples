@@ -7,7 +7,7 @@ import com.daxie.joglf.gl.input.mouse.MouseEnum;
 import com.daxie.joglf.gl.text.TextMgr;
 import com.daxie.joglf.gl.window.JOGLFWindow;
 
-public class MouseTestWindow extends JOGLFWindow{
+class MouseTestWindow extends JOGLFWindow{
 	public MouseTestWindow() {
 		
 	}

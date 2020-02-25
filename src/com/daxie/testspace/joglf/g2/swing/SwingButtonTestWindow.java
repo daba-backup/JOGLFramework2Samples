@@ -20,7 +20,7 @@ import com.daxie.joglf.gl.front.CameraFront;
 import com.daxie.joglf.gl.window.JOGLFSwingWindow;
 import com.daxie.tool.MathFunctions;
 
-public class SwingButtonTestWindow extends JOGLFSwingWindow implements ActionListener{
+class SwingButtonTestWindow extends JOGLFSwingWindow implements ActionListener{
 	public SwingButtonTestWindow() {
 		
 	}

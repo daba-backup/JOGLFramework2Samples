@@ -10,7 +10,7 @@ import com.daxie.joglf.gl.front.CameraFront;
 import com.daxie.joglf.gl.window.JOGLFWindow;
 import com.daxie.tool.MathFunctions;
 
-public class DrawSphereWindow extends JOGLFWindow{
+class DrawSphereWindow extends JOGLFWindow{
 	public DrawSphereWindow() {
 		
 	}

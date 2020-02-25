@@ -8,7 +8,7 @@ import com.daxie.joglf.gl.drawer.Dynamic2DFilledCirclesDrawer;
 import com.daxie.joglf.gl.shape.Circle2D;
 import com.daxie.joglf.gl.window.JOGLFWindow;
 
-public class Draw2DFilledCirclesWindow extends JOGLFWindow{
+class Draw2DFilledCirclesWindow extends JOGLFWindow{
 	private Dynamic2DFilledCirclesDrawer drawer;
 	
 	@Override

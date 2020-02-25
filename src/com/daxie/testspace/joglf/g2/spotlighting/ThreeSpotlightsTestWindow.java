@@ -11,7 +11,7 @@ import com.daxie.joglf.gl.shader.ShaderProgram;
 import com.daxie.joglf.gl.window.JOGLFWindow;
 import com.daxie.tool.MathFunctions;
 
-public class ThreeSpotlightsTestWindow extends JOGLFWindow{
+class ThreeSpotlightsTestWindow extends JOGLFWindow{
 	private Vector camera_position;
 	
 	private static final int LIGHT_NUM=3;

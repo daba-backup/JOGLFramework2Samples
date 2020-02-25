@@ -12,7 +12,7 @@ import com.daxie.joglf.gl.texture.TextureMgr;
 import com.daxie.joglf.gl.window.JOGLFWindow;
 import com.daxie.tool.MathFunctions;
 
-public class DrawQuadranglesWindow extends JOGLFWindow{
+class DrawQuadranglesWindow extends JOGLFWindow{
 	private Vector camera_position;
 	
 	private int texture_handle;
