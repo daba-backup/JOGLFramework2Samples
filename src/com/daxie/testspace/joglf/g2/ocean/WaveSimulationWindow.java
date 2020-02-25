@@ -74,16 +74,16 @@ class WaveSimulationWindow extends JOGLFWindow{
 		inv_and_perm.Compute();
 		
 		int heightmap_id=inv_and_perm.GetHeightmap();
-		FloatBuffer heightmap=Buffers.newDirectFloatBuffer(N*N*4);
+		FloatBuffer heightmap=Buffers.newDirectFloatBuffer(N*N);
 		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, heightmap_id);
-		GLWrapper.glGetTexImage(GL4.GL_TEXTURE_2D, 0, GL4.GL_RGBA, GL4.GL_FLOAT, heightmap);
+		GLWrapper.glGetTexImage(GL4.GL_TEXTURE_2D, 0, GL4.GL_RED, GL4.GL_FLOAT, heightmap);
 		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, 0);
 		
 		ByteBuffer b_heightmap=Buffers.newDirectByteBuffer(N*N*4);
 		
-		int size=N*N*4;
-		for(int i=0;i<size;i+=4) {
-			float height=heightmap.get(i);
+		int size=N*N;
+		for(int i=0;i<size;i++) {
+			float height=heightmap.get();
 			
 			byte b;
 			if(height<0.0f)b=0;
