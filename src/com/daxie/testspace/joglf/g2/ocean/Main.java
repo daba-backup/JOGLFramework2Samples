@@ -13,8 +13,7 @@ public class Main {
 		LogWriter.SetLogLevelFlags(LogWriter.LOG_LEVEL_ALL);
 		GLFront.Setup(GLVersion.GL4);
 		
-		JOGLFWindow window=new WaveSimulationWindow();
-		window.SetTitle("Heightmap");
+		JOGLFWindow window=new WaveSimulationWindow2();
 		window.SetExitProcessWhenDestroyed();
 	}
 }
