@@ -21,7 +21,7 @@ class ButterflyTextureGeneration {
 	private int out_color_id;
 	
 	private ShaderProgram program;
-	private FullscreenQuadTransferrer transferer;
+	private FullscreenQuadTransferrer transferrer;
 	
 	private int output_texture_width;
 	
@@ -34,7 +34,7 @@ class ButterflyTextureGeneration {
 		this.SetupFramebuffer();
 		this.SetupProgram();
 		
-		transferer=new FullscreenQuadTransferrer();
+		transferrer=new FullscreenQuadTransferrer();
 	}
 	private void SetupInputTexture() {
 		IntBuffer texture_ids=Buffers.newDirectIntBuffer(1);
@@ -113,7 +113,7 @@ class ButterflyTextureGeneration {
 		GLWrapper.glActiveTexture(GL4.GL_TEXTURE0);
 		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, bit_reversed_indices_id);
 		program.SetUniform("bit_reversed_indices", 0);
-		transferer.Transfer();
+		transferrer.Transfer();
 		GLWrapper.glBindFramebuffer(GL4.GL_FRAMEBUFFER, 0);
 	}
 	

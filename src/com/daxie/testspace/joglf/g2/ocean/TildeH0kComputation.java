@@ -29,7 +29,7 @@ class TildeH0kComputation {
 	
 	private ShaderProgram program;
 	
-	private FullscreenQuadTransferrer transferer;
+	private FullscreenQuadTransferrer transferrer;
 	
 	public TildeH0kComputation(int N) {
 		this.N=N;
@@ -44,7 +44,7 @@ class TildeH0kComputation {
 		this.SetupFramebuffer();
 		this.SetupProgram();
 		
-		transferer=new FullscreenQuadTransferrer();
+		transferrer=new FullscreenQuadTransferrer();
 	}
 	private void SetupInputTexture() {
 		IntBuffer texture_ids=Buffers.newDirectIntBuffer(1);
@@ -137,7 +137,7 @@ class TildeH0kComputation {
 		GLWrapper.glActiveTexture(GL4.GL_TEXTURE0);
 		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, uniform_rnds_id);
 		program.SetUniform("uniform_rnds", 0);
-		transferer.Transfer();
+		transferrer.Transfer();
 		GLWrapper.glBindFramebuffer(GL4.GL_FRAMEBUFFER, 0);
 	}
 	

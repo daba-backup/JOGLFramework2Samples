@@ -21,7 +21,7 @@ class ButterflyComputation {
 	private int[] pingpong_texture_ids;
 	
 	private ShaderProgram program;
-	private FullscreenQuadTransferrer transferer;
+	private FullscreenQuadTransferrer transferrer;
 	
 	private int pingpong;
 	
@@ -29,7 +29,7 @@ class ButterflyComputation {
 		this.N=N;
 		total_stage_num=(int)Math.round(Math.log(N)/Math.log(2));
 		
-		transferer=new FullscreenQuadTransferrer();
+		transferrer=new FullscreenQuadTransferrer();
 		
 		this.SetupInputTexture();
 		this.SetupPingpongTextures();
@@ -119,7 +119,7 @@ class ButterflyComputation {
 			program.SetUniform("stage", i);
 			
 			this.innerCompute(pingpong, 1-pingpong);
-			transferer.Transfer();
+			transferrer.Transfer();
 			
 			pingpong=1-pingpong;
 		}
@@ -130,7 +130,7 @@ class ButterflyComputation {
 			program.SetUniform("stage", i);
 			
 			this.innerCompute(pingpong, 1-pingpong);
-			transferer.Transfer();
+			transferrer.Transfer();
 			
 			pingpong=1-pingpong;
 		}

@@ -24,7 +24,7 @@ class TildeHktComputation {
 	
 	private ShaderProgram program;
 	
-	private FullscreenQuadTransferrer transferer;
+	private FullscreenQuadTransferrer transferrer;
 	
 	public TildeHktComputation(int N) {
 		this.N=N;
@@ -36,7 +36,7 @@ class TildeHktComputation {
 		this.SetupFramebuffer();
 		this.SetupProgram();
 		
-		transferer=new FullscreenQuadTransferrer();
+		transferrer=new FullscreenQuadTransferrer();
 	}
 	private void SetupInputTextures() {
 		IntBuffer texture_ids=Buffers.newDirectIntBuffer(2);
@@ -127,7 +127,7 @@ class TildeHktComputation {
 		GLWrapper.glActiveTexture(GL4.GL_TEXTURE1);
 		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, tilde_h0minusk_id);
 		program.SetUniform("tilde_h0minusk", 1);
-		transferer.Transfer();
+		transferrer.Transfer();
 		GLWrapper.glBindFramebuffer(GL4.GL_FRAMEBUFFER, 0);
 	}
 	

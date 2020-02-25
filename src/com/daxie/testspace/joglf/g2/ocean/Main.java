@@ -14,6 +14,7 @@ public class Main {
 		GLFront.Setup(GLVersion.GL4);
 		
 		JOGLFWindow window=new WaveSimulationWindow();
+		window.SetTitle("Heightmap");
 		window.SetExitProcessWhenDestroyed();
 	}
 }

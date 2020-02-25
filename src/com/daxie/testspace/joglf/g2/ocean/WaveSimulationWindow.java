@@ -17,12 +17,12 @@ class WaveSimulationWindow extends JOGLFWindow{
 	private ButterflyComputation butterfly_computation;
 	private InversionAndPermutation inv_and_perm;
 	
-	private static final int N=256;
+	private static final int N=512;
 	
 	private int heightmap_id;
 	
 	private ShaderProgram program;
-	private FullscreenQuadTransferrerWithUV transferer;
+	private FullscreenQuadTransferrerWithUV transferrer;
 	
 	@Override
 	protected void Init() {
@@ -44,7 +44,7 @@ class WaveSimulationWindow extends JOGLFWindow{
 		this.SetupHeightmap();
 		this.SetupProgram();
 		
-		transferer=new FullscreenQuadTransferrerWithUV();
+		transferrer=new FullscreenQuadTransferrerWithUV();
 	}
 	private void SetupHeightmap() {
 		IntBuffer texture_ids=Buffers.newDirectIntBuffer(1);
@@ -105,7 +105,7 @@ class WaveSimulationWindow extends JOGLFWindow{
 		GLWrapper.glActiveTexture(GL4.GL_TEXTURE0);
 		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, heightmap_id);
 		program.SetUniform("texture_sampler", 0);
-		transferer.Transfer();
+		transferrer.Transfer();
 		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, 0);
 	}
 }

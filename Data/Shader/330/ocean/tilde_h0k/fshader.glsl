@@ -43,7 +43,7 @@ void main(){
 
     //h0(k)
     float temp0=exp(-1.0/(mag_sq*L_*L_));
-    float temp1=pow(dot(normalize(k),normalize(w)),6.0);
+    float temp1=pow(dot(normalize(k),normalize(w)),8.0);
     float temp2=mag_sq*mag_sq;
     float Phk=A*temp0*temp1/temp2;
     

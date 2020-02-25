@@ -20,7 +20,7 @@ class InversionAndPermutation {
 	private int heightmap_id;
 	
 	private ShaderProgram program;
-	private FullscreenQuadTransferrer transferer;
+	private FullscreenQuadTransferrer transferrer;
 	
 	public InversionAndPermutation(int N) {
 		this.N=N;
@@ -30,7 +30,7 @@ class InversionAndPermutation {
 		this.SetupFramebuffer();
 		this.SetupProgram();
 		
-		transferer=new FullscreenQuadTransferrer();
+		transferrer=new FullscreenQuadTransferrer();
 	}
 	private void SetupInputTexture() {
 		IntBuffer texture_ids=Buffers.newDirectIntBuffer(1);
@@ -99,7 +99,7 @@ class InversionAndPermutation {
 		GLWrapper.glActiveTexture(GL4.GL_TEXTURE0);
 		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, input_texture_id);
 		program.SetUniform("input_texture", 0);
-		transferer.Transfer();
+		transferrer.Transfer();
 		GLWrapper.glBindFramebuffer(GL4.GL_FRAMEBUFFER, 0);
 	}
 	
