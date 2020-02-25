@@ -10,7 +10,7 @@ import java.util.Random;
 
 import com.daxie.joglf.gl.shader.GLShaderFunctions;
 import com.daxie.joglf.gl.shader.ShaderProgram;
-import com.daxie.joglf.gl.transferer.FullscreenQuadTransferer;
+import com.daxie.joglf.gl.transferrer.FullscreenQuadTransferrer;
 import com.daxie.joglf.gl.window.JOGLFWindow;
 import com.daxie.joglf.gl.wrapper.GLWrapper;
 import com.daxie.tool.FileFunctions;
@@ -27,7 +27,7 @@ public class BoxMullerMethodTestWindow extends JOGLFWindow{
 	private static final int TEXTURE_WIDTH=128;
 	private static final int TEXTURE_HEIGHT=128;
 	
-	private FullscreenQuadTransferer fqt;
+	private FullscreenQuadTransferrer fqt;
 	
 	@Override
 	protected void Init() {
@@ -44,7 +44,7 @@ public class BoxMullerMethodTestWindow extends JOGLFWindow{
 		this.SetupFramebuffer();
 		this.SetupProgram();
 		
-		fqt=new FullscreenQuadTransferer();
+		fqt=new FullscreenQuadTransferrer();
 	}
 	private void SetupInputTexture() {
 		Random random=new Random();

@@ -5,7 +5,7 @@ import java.nio.IntBuffer;
 
 import com.daxie.joglf.gl.shader.GLShaderFunctions;
 import com.daxie.joglf.gl.shader.ShaderProgram;
-import com.daxie.joglf.gl.transferer.FullscreenQuadTransferer;
+import com.daxie.joglf.gl.transferrer.FullscreenQuadTransferrer;
 import com.daxie.joglf.gl.wrapper.GLWrapper;
 import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.GL4;
@@ -20,7 +20,7 @@ public class InversionAndPermutation {
 	private int heightmap_id;
 	
 	private ShaderProgram program;
-	private FullscreenQuadTransferer transferer;
+	private FullscreenQuadTransferrer transferer;
 	
 	public InversionAndPermutation(int N) {
 		this.N=N;
@@ -30,7 +30,7 @@ public class InversionAndPermutation {
 		this.SetupFramebuffer();
 		this.SetupProgram();
 		
-		transferer=new FullscreenQuadTransferer();
+		transferer=new FullscreenQuadTransferrer();
 	}
 	private void SetupInputTexture() {
 		IntBuffer texture_ids=Buffers.newDirectIntBuffer(1);

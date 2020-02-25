@@ -6,7 +6,7 @@ import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
 import com.daxie.joglf.gl.shader.ShaderProgram;
-import com.daxie.joglf.gl.transferer.FullscreenQuadTransferer;
+import com.daxie.joglf.gl.transferrer.FullscreenQuadTransferrerWithUV;
 import com.daxie.joglf.gl.window.JOGLFWindow;
 import com.daxie.joglf.gl.wrapper.GLWrapper;
 import com.jogamp.common.nio.Buffers;
@@ -17,12 +17,12 @@ public class WaveSimulationWindow extends JOGLFWindow{
 	private ButterflyComputation butterfly_computation;
 	private InversionAndPermutation inv_and_perm;
 	
-	private static final int N=512;
+	private static final int N=256;
 	
 	private int heightmap_id;
 	
 	private ShaderProgram program;
-	private FullscreenQuadTransferer transferer;
+	private FullscreenQuadTransferrerWithUV transferer;
 	
 	@Override
 	protected void Init() {
@@ -44,7 +44,7 @@ public class WaveSimulationWindow extends JOGLFWindow{
 		this.SetupHeightmap();
 		this.SetupProgram();
 		
-		transferer=new FullscreenQuadTransferer();
+		transferer=new FullscreenQuadTransferrerWithUV();
 	}
 	private void SetupHeightmap() {
 		IntBuffer texture_ids=Buffers.newDirectIntBuffer(1);
@@ -75,8 +75,6 @@ public class WaveSimulationWindow extends JOGLFWindow{
 		
 		FloatBuffer heightmap=inv_and_perm.GetHeightmap();
 		ByteBuffer b_heightmap=Buffers.newDirectByteBuffer(N*N*4);
-		
-		System.out.println(heightmap.get(0));
 		
 		int size=N*N*4;
 		for(int i=0;i<size;i+=4) {
