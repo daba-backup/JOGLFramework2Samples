@@ -25,7 +25,7 @@ vec4 Lighting(){
     vec3 half_le=-normalize(camera_direction+light_direction);
 
     float diffuse=clamp(dot(vs_out_normal,-light_direction),0.0,1.0);
-    float specular=pow(clamp(dot(vs_out_normal,half_le),0.0,1.0),20.0);
+    float specular=pow(clamp(dot(vs_out_normal,half_le),0.0,1.0),10.0);
 
     vec4 water_diffuse_color=vec4(0.20,0.58,0.92,1.0);
     vec4 water_specular_color=vec4(1.0);

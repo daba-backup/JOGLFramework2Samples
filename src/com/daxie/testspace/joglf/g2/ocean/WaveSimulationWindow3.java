@@ -94,10 +94,10 @@ class WaveSimulationWindow3 extends JOGLFWindow{
 				for(int k=0;k<2;k++)triangles[k]=new Triangle();
 				
 				Vector[] positions=new Vector[4];
-				positions[0]=VectorFunctions.VGet(x*3.0f, heightmap.get(z*N+x)*0.3f, z*3.0f);
-				positions[1]=VectorFunctions.VGet(x*3.0f, heightmap.get((z+1)*N+x)*0.3f, (z+1)*3.0f);
-				positions[2]=VectorFunctions.VGet((x+1)*3.0f, heightmap.get((z+1)*N+(x+1))*0.3f, (z+1)*3.0f);
-				positions[3]=VectorFunctions.VGet((x+1)*3.0f, heightmap.get(z*N+(x+1))*0.3f, z*3.0f);
+				positions[0]=VectorFunctions.VGet(x*3.0f, heightmap.get(z*N+x)*0.2f, z*3.0f);
+				positions[1]=VectorFunctions.VGet(x*3.0f, heightmap.get((z+1)*N+x)*0.2f, (z+1)*3.0f);
+				positions[2]=VectorFunctions.VGet((x+1)*3.0f, heightmap.get((z+1)*N+(x+1))*0.2f, (z+1)*3.0f);
+				positions[3]=VectorFunctions.VGet((x+1)*3.0f, heightmap.get(z*N+(x+1))*0.2f, z*3.0f);
 				
 				Vector edge1=VectorFunctions.VSub(positions[1], positions[0]);
 				Vector edge2=VectorFunctions.VSub(positions[2], positions[0]);
