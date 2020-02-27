@@ -1,4 +1,4 @@
-package com.daxie.testspace.joglf.g2.ocean;
+package com.daxie.testspace.joglf.g2.ocean_wave;
 
 import java.nio.Buffer;
 import java.nio.FloatBuffer;
