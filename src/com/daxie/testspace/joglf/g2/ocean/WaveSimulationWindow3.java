@@ -35,8 +35,10 @@ class WaveSimulationWindow3 extends JOGLFWindow{
 		butterfly_computation=new ButterflyComputation(N);
 		inv_and_perm=new InversionAndPermutation(N);
 		
+		tilde_h0k_computation.SetParameters(256, 4.0f, 40.0f, 1.0f, 1.0f);
 		tilde_h0k_computation.Compute();
 		
+		tilde_hkt_computation.SetParameter(256);
 		tilde_hkt_computation.SetTildeH0k(tilde_h0k_computation.GetTildeH0k());
 		tilde_hkt_computation.SetTildeH0minusk(tilde_h0k_computation.GetTildeH0minusk());
 		
@@ -63,7 +65,7 @@ class WaveSimulationWindow3 extends JOGLFWindow{
 		
 		LightingFront.SetAmbientColor(ColorU8Functions.GetColorU8(0.0f, 0.0f, 0.0f, 1.0f));
 		LightingFront.SetDiffusePower(0.8f);
-		LightingFront.SetSpecularPower(8.0f);
+		LightingFront.SetSpecularPower(6.0f);
 	}
 	
 	@Override
@@ -94,10 +96,10 @@ class WaveSimulationWindow3 extends JOGLFWindow{
 				for(int k=0;k<2;k++)triangles[k]=new Triangle();
 				
 				Vector[] positions=new Vector[4];
-				positions[0]=VectorFunctions.VGet(x*3.0f, heightmap.get(z*N+x)*0.2f, z*3.0f);
-				positions[1]=VectorFunctions.VGet(x*3.0f, heightmap.get((z+1)*N+x)*0.2f, (z+1)*3.0f);
-				positions[2]=VectorFunctions.VGet((x+1)*3.0f, heightmap.get((z+1)*N+(x+1))*0.2f, (z+1)*3.0f);
-				positions[3]=VectorFunctions.VGet((x+1)*3.0f, heightmap.get(z*N+(x+1))*0.2f, z*3.0f);
+				positions[0]=VectorFunctions.VGet(x*1.0f, heightmap.get(z*N+x)*1.0f, z*1.0f);
+				positions[1]=VectorFunctions.VGet(x*1.0f, heightmap.get((z+1)*N+x)*1.0f, (z+1)*1.0f);
+				positions[2]=VectorFunctions.VGet((x+1)*1.0f, heightmap.get((z+1)*N+(x+1))*1.0f, (z+1)*1.0f);
+				positions[3]=VectorFunctions.VGet((x+1)*1.0f, heightmap.get(z*N+(x+1))*1.0f, z*1.0f);
 				
 				Vector edge1=VectorFunctions.VSub(positions[1], positions[0]);
 				Vector edge2=VectorFunctions.VSub(positions[2], positions[0]);
@@ -153,8 +155,8 @@ class WaveSimulationWindow3 extends JOGLFWindow{
 		drawer.UpdateBuffers();
 		
 		CameraFront.SetCameraPositionAndTarget_UpVecY(
-				VectorFunctions.VGet(-20.0f, 50.0f, -20.0f), 
-				VectorFunctions.VGet(20.0f, 10.0f, 20.0f));
+				VectorFunctions.VGet(-10.0f, 30.0f, -10.0f), 
+				VectorFunctions.VGet(20.0f, 0.0f, 20.0f));
 	}
 	
 	@Override
