@@ -53,7 +53,7 @@ public class WaveSimulationWindow2 extends JOGLFWindow{
 		
 		inv_and_perm.Compute();
 		
-		int heightmap_id=inv_and_perm.GetHeightmap();
+		int heightmap_id=inv_and_perm.GetOutputTexture();
 		FloatBuffer heightmap=Buffers.newDirectFloatBuffer(N*N);
 		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, heightmap_id);
 		GLWrapper.glGetTexImage(GL4.GL_TEXTURE_2D, 0, GL4.GL_RED, GL4.GL_FLOAT, heightmap);
