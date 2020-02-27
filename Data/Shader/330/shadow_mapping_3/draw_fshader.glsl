@@ -17,8 +17,8 @@ uniform float light_attenuation;
 uniform float phi;
 uniform float theta;
 uniform float falloff;
-uniform vec4 diffuse_color;
 uniform vec4 ambient_color;
+uniform float diffuse_power;
 uniform float specular_power;
 
 uniform vec4 fog_color;
@@ -28,15 +28,19 @@ uniform float fog_end;
 uniform sampler2D texture_sampler;
 uniform sampler2D shadow_map;
 
+uniform bool enable_shadow;
+
 out vec4 fs_out_color;
 
 float Shadow(){
     const float bias=0.001;
     float visibility=1.0;
 
-    float depth=texture(shadow_map,shadow_coords.xy/shadow_coords.w).r;
-    if(depth<(shadow_coords.z-bias)/shadow_coords.w){
-        visibility=0.5;
+    if(enable_shadow==true){
+        float depth=texture(shadow_map,shadow_coords.xy/shadow_coords.w).r;
+        if(depth<(shadow_coords.z-bias)/shadow_coords.w){
+            visibility=0.5;
+        }
     }
 
     return visibility;
@@ -65,8 +69,11 @@ vec4 Lighting(){
         }
 
         vec3 half_le=-normalize(camera_target+light_direction);
+
+        float diffuse=clamp(dot(vs_out_normal,-light_direction),0.0,1.0);
         float specular=pow(clamp(dot(vs_out_normal,half_le),0.0,1.0),2.0);
 
+        vec4 diffuse_color=vec4(diffuse*diffuse_power);
         vec4 specular_color=vec4(specular*specular_power);
 
         color=ambient_color+diffuse_color*attenuation+specular_color;

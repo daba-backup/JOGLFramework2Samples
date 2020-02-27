@@ -43,8 +43,8 @@ class ShadowMappingTestWindow3 extends JOGLFWindow{
 	private float phi;
 	private float theta;
 	private float falloff;
-	private ColorU8 diffuse_color;
 	private ColorU8 ambient_color;
+	private float diffuse_power;
 	private float specular_power;
 	
 	@Override
@@ -80,7 +80,7 @@ class ShadowMappingTestWindow3 extends JOGLFWindow{
 		
 		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, texture_id);
 		GLWrapper.glTexImage2D(
-				GL4.GL_TEXTURE_2D, 0,GL4.GL_DEPTH_COMPONENT, 
+				GL4.GL_TEXTURE_2D, 0,GL4.GL_DEPTH_COMPONENT32, 
 				SHADOW_WIDTH, SHADOW_HEIGHT, 0, GL4.GL_DEPTH_COMPONENT, GL4.GL_FLOAT, null);
 		GLWrapper.glTexParameteri(GL4.GL_TEXTURE_2D, GL4.GL_TEXTURE_MAG_FILTER, GL4.GL_NEAREST);
 		GLWrapper.glTexParameteri(GL4.GL_TEXTURE_2D, GL4.GL_TEXTURE_MIN_FILTER, GL4.GL_NEAREST);
@@ -121,9 +121,9 @@ class ShadowMappingTestWindow3 extends JOGLFWindow{
 		phi=MathFunctions.DegToRad(50.0f);
 		theta=MathFunctions.DegToRad(30.0f);
 		falloff=1.0f;
-		diffuse_color=ColorU8Functions.GetColorU8(1.0f, 1.0f, 1.0f, 1.0f);
 		ambient_color=ColorU8Functions.GetColorU8(0.1f, 0.1f, 0.1f, 1.0f);
-		specular_power=0.1f;
+		diffuse_power=2.0f;
+		specular_power=1.0f;
 	}
 	private void SetupFronts() {
 		CameraFront.AddProgram("draw");
@@ -152,9 +152,9 @@ class ShadowMappingTestWindow3 extends JOGLFWindow{
 		draw_program.SetUniform("phi", phi);
 		draw_program.SetUniform("theta", theta);
 		draw_program.SetUniform("falloff", falloff);
-		draw_program.SetUniform("diffuse_color", diffuse_color);
 		draw_program.SetUniform("ambient_color", ambient_color);
-		draw_program.SetUniform("specular_color", specular_power);
+		draw_program.SetUniform("diffuse_power", diffuse_power);
+		draw_program.SetUniform("specular_power", specular_power);
 		draw_program.Disable();
 	}
 	private void UpdateShadowMap() {
@@ -186,6 +186,7 @@ class ShadowMappingTestWindow3 extends JOGLFWindow{
 	
 	@Override
 	protected void Draw() {
+		//Depth
 		depth_program.Enable();
 		GLWrapper.glBindFramebuffer(GL4.GL_FRAMEBUFFER, fbo_id);
 		GLWrapper.glViewport(0, 0, SHADOW_WIDTH, SHADOW_HEIGHT);
@@ -194,14 +195,27 @@ class ShadowMappingTestWindow3 extends JOGLFWindow{
 		GLWrapper.glBindFramebuffer(GL4.GL_FRAMEBUFFER, 0);
 		depth_program.Disable();
 		
+		//Draw
 		draw_program.Enable();
 		GLWrapper.glViewport(0, 0, this.GetWidth(), this.GetHeight());
+		
 		GLWrapper.glActiveTexture(GL4.GL_TEXTURE1);
 		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, texture_id);
 		draw_program.SetUniform("shadow_map", 1);
+		
+		this.DrawWithoutSelfShadowing();
+		
+		draw_program.Disable();
+	}
+	private void DrawWithSelfShadowing() {
+		draw_program.SetUniform("enable_shadow", 1);
 		Model3D.DrawModel(ground_model_handle,0,"texture_sampler");
 		Model3D.DrawModel(teapot_model_handle,0,"texture_sampler");
-		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, 0);
-		draw_program.Disable();
+	}
+	private void DrawWithoutSelfShadowing() {
+		draw_program.SetUniform("enable_shadow", 1);
+		Model3D.DrawModel(ground_model_handle,0,"texture_sampler");
+		draw_program.SetUniform("enable_shadow", 0);
+		Model3D.DrawModel(teapot_model_handle,0,"texture_sampler");
 	}
 }

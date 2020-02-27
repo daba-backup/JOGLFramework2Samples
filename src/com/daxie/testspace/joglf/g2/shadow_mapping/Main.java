@@ -13,7 +13,7 @@ public class Main {
 		LogWriter.SetLogLevelFlags(LogWriter.LOG_LEVEL_ALL);
 		GLFront.Setup(GLVersion.GL4);
 		
-		JOGLFWindow window=new ShadowMappingTestWindow();
+		JOGLFWindow window=new ShadowMappingTestWindow3();
 		window.SetTitle("Shadow Mapping");
 		window.SetExitProcessWhenDestroyed();
 	}
