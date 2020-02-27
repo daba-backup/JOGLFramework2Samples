@@ -61,7 +61,7 @@ class TildeHktDComputation {
 				GL4.GL_FRAMEBUFFER, GL4.GL_COLOR_ATTACHMENT0, 
 				GL4.GL_TEXTURE_2D, tilde_hkt_d_id, 0);
 		if(GLWrapper.glCheckFramebufferStatus(GL4.GL_FRAMEBUFFER)!=GL4.GL_FRAMEBUFFER_COMPLETE) {
-			System.out.println("TildeHktComputation2:Incomplete framebuffer");
+			System.out.println("TildeHktDComputation:Incomplete framebuffer");
 		}
 		int[] draw_buffers=new int[] {GL4.GL_COLOR_ATTACHMENT0};
 		GLWrapper.glDrawBuffers(1, Buffers.newDirectIntBuffer(draw_buffers));

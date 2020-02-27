@@ -209,7 +209,7 @@ class WaveSimulationWindow3 extends JOGLFWindow{
 		
 		CameraFront.SetCameraPositionAndTarget_UpVecY(
 				VectorFunctions.VGet(-10.0f, 30.0f, -10.0f), 
-				VectorFunctions.VGet(20.0f, 0.0f, 20.0f));
+				VectorFunctions.VGet(20.0f, -5.0f, 20.0f));
 	}
 	
 	@Override
