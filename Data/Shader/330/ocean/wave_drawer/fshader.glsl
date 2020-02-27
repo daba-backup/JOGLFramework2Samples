@@ -25,10 +25,16 @@ vec4 Lighting(){
     vec3 half_le=-normalize(camera_direction+light_direction);
 
     float diffuse=clamp(dot(vs_out_normal,-light_direction),0.0,1.0);
-    float specular=pow(clamp(dot(vs_out_normal,half_le),0.0,1.0),10.0);
 
-    vec4 water_diffuse_color=vec4(0.20,0.58,0.92,1.0);
+    vec4 water_diffuse_color=vec4(0.25,0.58,0.92,1.0);
     vec4 water_specular_color=vec4(1.0);
+
+    float sin_th_i=length(cross(-light_direction,vs_out_normal));
+    float sin_th_t=sin_th_i/1.33;
+    float th_i=asin(sin_th_i);
+    float th_t=asin(sin_th_t);
+    float specular=pow(sin(th_t-th_i),2.0)/pow(sin(th_t+th_i),2.0)+pow(tan(th_t-th_i),2.0)/pow(tan(th_t+th_i),2.0);
+    specular*=0.5;
 
     vec4 diffuse_color=vec4(water_diffuse_color*diffuse*diffuse_power);
     vec4 specular_color=vec4(water_specular_color*specular*specular_power);

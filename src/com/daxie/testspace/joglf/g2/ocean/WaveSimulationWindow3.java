@@ -62,8 +62,8 @@ class WaveSimulationWindow3 extends JOGLFWindow{
 		FogFront.SetFogStartEnd(100.0f, 1000.0f);
 		
 		LightingFront.SetAmbientColor(ColorU8Functions.GetColorU8(0.0f, 0.0f, 0.0f, 1.0f));
-		LightingFront.SetDiffusePower(0.5f);
-		LightingFront.SetSpecularPower(1.5f);
+		LightingFront.SetDiffusePower(0.8f);
+		LightingFront.SetSpecularPower(8.0f);
 	}
 	
 	@Override
