@@ -123,7 +123,7 @@ class ShadowMappingTestWindow3 extends JOGLFWindow{
 		falloff=1.0f;
 		ambient_color=ColorU8Functions.GetColorU8(0.1f, 0.1f, 0.1f, 1.0f);
 		diffuse_power=2.0f;
-		specular_power=1.0f;
+		specular_power=2.0f;
 	}
 	private void SetupFronts() {
 		CameraFront.AddProgram("draw");
@@ -203,7 +203,7 @@ class ShadowMappingTestWindow3 extends JOGLFWindow{
 		GLWrapper.glBindTexture(GL4.GL_TEXTURE_2D, texture_id);
 		draw_program.SetUniform("shadow_map", 1);
 		
-		this.DrawWithoutSelfShadowing();
+		this.DrawWithSelfShadowing();
 		
 		draw_program.Disable();
 	}

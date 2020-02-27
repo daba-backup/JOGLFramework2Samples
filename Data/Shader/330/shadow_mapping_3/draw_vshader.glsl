@@ -19,7 +19,8 @@ void SetPosition(){
     mat4 camera_matrix=projection*view_transformation;
     gl_Position=camera_matrix*vec4(vs_in_position,1.0);
 
-    shadow_coords=depth_bias_mvp*vec4(vs_in_position,1.0);
+    const float normal_offset=0.1;
+    shadow_coords=depth_bias_mvp*vec4(vs_in_position+vs_in_normal*normal_offset,1.0);
 
     vs_out_position=vs_in_position;
 }
