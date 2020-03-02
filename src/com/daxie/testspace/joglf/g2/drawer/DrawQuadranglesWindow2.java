@@ -4,7 +4,6 @@ import com.daxie.basis.matrix.Matrix;
 import com.daxie.basis.matrix.MatrixFunctions;
 import com.daxie.basis.vector.Vector;
 import com.daxie.basis.vector.VectorFunctions;
-import com.daxie.joglf.gl.draw.GLDrawFunctions3D;
 import com.daxie.joglf.gl.drawer.DynamicQuadranglesDrawer;
 import com.daxie.joglf.gl.front.CameraFront;
 import com.daxie.joglf.gl.model.Model3D;
@@ -29,8 +28,7 @@ class DrawQuadranglesWindow2 extends JOGLFWindow{
 		Model3D.RescaleModel(model_handle, VectorFunctions.VGet(MODEL_SCALE, MODEL_SCALE, MODEL_SCALE));
 		
 		screen=new Screen(1024, 1024);
-		int texture_handle=screen.Associate();
-		//int texture_handle=TextureMgr.LoadTexture("./Data/Texture/white.bmp");
+		int texture_handle=screen.Associate(false);
 		
 		drawer=new DynamicQuadranglesDrawer();
 		drawer.SetTextureHandle(texture_handle);
@@ -68,21 +66,27 @@ class DrawQuadranglesWindow2 extends JOGLFWindow{
 		screen.Bind();
 		screen.Clear();
 		screen.Fit();
+		CameraFront.UpdateAspect(1024, 1024);
 		CameraFront.SetCameraPositionAndTarget_UpVecY(
 				VectorFunctions.VGet(50.0f, 50.0f, 50.0f), 
 				VectorFunctions.VGet(0.0f, 0.0f, 0.0f));
 		CameraFront.Update();
+		/*
+		GLDrawFunctions3D.DrawSphere3D(
+				VectorFunctions.VGet(0.0f, 0.0f, 0.0f), 10.0f, 
+				16, 16, ColorU8Functions.GetColorU8(1.0f, 1.0f, 1.0f, 1.0f));
 		GLDrawFunctions3D.DrawAxes(100.0f);
+		*/
 		Model3D.DrawModel(model_handle);
 		screen.Unbind();
 		
+		CameraFront.UpdateAspect(this.GetWidth(), this.GetHeight());
 		CameraFront.SetCameraPositionAndTarget_UpVecY(
 				camera_position, 
 				VectorFunctions.VGet(0.0f, 0.0f, 0.0f));
 		CameraFront.Update();
 		
 		GLWrapper.glViewport(0, 0, this.GetWidth(), this.GetHeight());
-		GLDrawFunctions3D.DrawAxes(100.0f);
 		drawer.Draw();
 	}
 }
