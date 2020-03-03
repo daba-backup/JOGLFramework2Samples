@@ -33,7 +33,8 @@ class FBOTextureOntoModelTestWindow extends JOGLFWindow{
 		screen=new Screen(SCREEN_WIDTH, SCREEN_HEIGHT);
 		int texture_handle=screen.Associate(false);
 		
-		Model3D.ChangeModelTexture(cube_handle, 0, texture_handle);
+		Model3D.ChangeModelTexture(cube_handle, 2, texture_handle);
+		Model3D.ChangeModelTexture(cube_handle, 3, texture_handle);
 		
 		offscreen_camera_pos=VectorFunctions.VGet(40.0f, 40.0f, 40.0f);
 	}
