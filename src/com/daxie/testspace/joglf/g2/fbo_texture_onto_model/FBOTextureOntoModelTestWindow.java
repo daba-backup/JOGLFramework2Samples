@@ -39,13 +39,9 @@ class FBOTextureOntoModelTestWindow extends JOGLFWindow{
 	}
 	
 	@Override
-	protected void Update() {
-		
-	}
-	
-	@Override
 	protected void Draw() {
 		screen.Bind();
+		GLWrapper.glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 		screen.Clear();
 		screen.Fit();
 		this.SetupCameraForOffscreen();
@@ -69,7 +65,7 @@ class FBOTextureOntoModelTestWindow extends JOGLFWindow{
 	private void SetupCameraForMainScreen() {
 		CameraFront.UpdateAspect(this.GetWidth(), this.GetHeight());
 		CameraFront.SetCameraPositionAndTarget_UpVecY(
-				VectorFunctions.VGet(20.0f, 20.0f, 20.0f),
+				VectorFunctions.VGet(10.0f, 10.0f, 10.0f),
 				VectorFunctions.VGet(0.0f, 0.0f, 0.0f));
 		CameraFront.Update();
 	}
