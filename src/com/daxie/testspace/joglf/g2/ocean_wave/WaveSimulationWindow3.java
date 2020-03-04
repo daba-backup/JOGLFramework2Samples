@@ -31,6 +31,8 @@ class WaveSimulationWindow3 extends JOGLFWindow{
 	
 	@Override
 	protected void Init() {
+		ProgramCreator.Create();
+		
 		TildeH0kComputation[] tilde_h0k_computations=new TildeH0kComputation[3];
 		for(int i=0;i<3;i++) {
 			tilde_h0k_computations[i]=new TildeH0kComputation(N);

@@ -2,7 +2,6 @@ package com.daxie.testspace.joglf.g2.ocean_wave;
 
 import java.nio.IntBuffer;
 
-import com.daxie.joglf.gl.shader.GLShaderFunctions;
 import com.daxie.joglf.gl.shader.ShaderProgram;
 import com.daxie.joglf.gl.transferrer.FullscreenQuadTransferrer;
 import com.daxie.joglf.gl.wrapper.GLWrapper;
@@ -68,10 +67,6 @@ class TildeHktDComputation {
 		GLWrapper.glBindFramebuffer(GL4.GL_FRAMEBUFFER, 0);
 	}
 	private void SetupProgram() {
-		GLShaderFunctions.CreateProgram(
-				"tilde_hkt_d", 
-				"./Data/Shader/330/ocean/tilde_hkt_d/vshader.glsl",
-				"./Data/Shader/330/ocean/tilde_hkt_d/fshader.glsl");
 		program=new ShaderProgram("tilde_hkt_d");
 	}
 	

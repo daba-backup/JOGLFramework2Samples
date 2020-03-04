@@ -26,6 +26,8 @@ class WaveSimulationWindow extends JOGLFWindow{
 	
 	@Override
 	protected void Init() {
+		ProgramCreator.Create();
+		
 		TildeH0kComputation tilde_h0k_computation=new TildeH0kComputation(N);
 		tilde_hkt_computation=new TildeHktComputation(N);
 		ButterflyTextureGeneration butterfly_texture_generation=new ButterflyTextureGeneration(N);

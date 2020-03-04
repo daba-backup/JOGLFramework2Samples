@@ -2,7 +2,6 @@ package com.daxie.testspace.joglf.g2.ocean_wave;
 
 import java.nio.IntBuffer;
 
-import com.daxie.joglf.gl.shader.GLShaderFunctions;
 import com.daxie.joglf.gl.shader.ShaderProgram;
 import com.daxie.joglf.gl.transferrer.FullscreenQuadTransferrer;
 import com.daxie.joglf.gl.wrapper.GLWrapper;
@@ -62,10 +61,6 @@ class ButterflyComputation {
 		GLWrapper.glBindFramebuffer(GL4.GL_FRAMEBUFFER, 0);
 	}
 	private void SetupProgram() {
-		GLShaderFunctions.CreateProgram(
-				"butterfly_computation", 
-				"./Data/Shader/330/ocean/butterfly_computation/vshader.glsl",
-				"./Data/Shader/330/ocean/butterfly_computation/fshader.glsl");
 		program=new ShaderProgram("butterfly_computation");
 	}
 	
