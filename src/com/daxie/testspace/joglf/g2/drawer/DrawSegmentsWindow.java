@@ -22,6 +22,7 @@ class DrawSegmentsWindow extends JOGLFWindow{
 		camera_position=VectorFunctions.VGet(50.0f, 50.0f, 50.0f);
 		
 		drawer=new DynamicSegmentsDrawer();
+		drawer.SetDefaultProgram();
 		
 		Random random=new Random();
 		final float SCALE=30.0f;

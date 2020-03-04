@@ -23,8 +23,10 @@ class DrawTrianglesWindow extends JOGLFWindow{
 		camera_position=VectorFunctions.VGet(50.0f, 50.0f, 50.0f);
 		
 		texture_handle=TextureMgr.LoadTexture("./Data/Texture/white.bmp");
+		
 		drawer=new DynamicTrianglesDrawer();
 		drawer.SetTextureHandle(texture_handle);
+		drawer.SetDefaultProgram();
 		
 		for(int i=0;i<10;i++) {
 			Triangle triangle=new Triangle();

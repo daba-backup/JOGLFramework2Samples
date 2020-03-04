@@ -23,8 +23,10 @@ class DrawQuadranglesWindow extends JOGLFWindow{
 		camera_position=VectorFunctions.VGet(50.0f, 50.0f, 50.0f);
 		
 		texture_handle=TextureMgr.LoadTexture("./Data/Texture/wood.jpg");
+		
 		drawer=new DynamicQuadranglesDrawer();
 		drawer.SetTextureHandle(texture_handle);
+		drawer.SetDefaultProgram();
 		
 		for(int i=0;i<10;i++) {
 			Quadrangle quadrangle=new Quadrangle();

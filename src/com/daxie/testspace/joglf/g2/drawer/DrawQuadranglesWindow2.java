@@ -32,6 +32,7 @@ class DrawQuadranglesWindow2 extends JOGLFWindow{
 		
 		drawer=new DynamicQuadranglesDrawer();
 		drawer.SetTextureHandle(texture_handle);
+		drawer.SetDefaultProgram();
 		
 		Quadrangle quad=new Quadrangle();
 		quad.GetVertex(0).SetPos(VectorFunctions.VGet(-20.0f, 0.0f, 20.0f));

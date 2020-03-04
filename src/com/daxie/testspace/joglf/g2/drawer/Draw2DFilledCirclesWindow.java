@@ -14,6 +14,7 @@ class Draw2DFilledCirclesWindow extends JOGLFWindow{
 	@Override
 	protected void Init() {
 		drawer=new Dynamic2DFilledCirclesDrawer();
+		drawer.SetDefaultProgram();
 		
 		Random random=new Random();
 		
