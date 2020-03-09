@@ -1,4 +1,4 @@
-package com.daxie.testspace.joglf.g2.cubemap;
+package com.daxie.testspace.joglf.g2.reflection_mapping;
 
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
@@ -14,8 +14,8 @@ import com.daxie.joglf.gl.wrapper.GLWrapper;
 import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.GL4;
 
-class CubemapTestWindow extends JOGLFWindow{
-	private int cubemap_texture_id;
+class ReflectionMappingTestWindow extends JOGLFWindow{
+	private int reflection_mapping_texture_id;
 	private int model_handle;
 	private int skybox_model_handle;
 	
@@ -57,11 +57,11 @@ class CubemapTestWindow extends JOGLFWindow{
 		
 		IntBuffer texture_ids=Buffers.newDirectIntBuffer(1);
 		GLWrapper.glGenTextures(1, texture_ids);
-		cubemap_texture_id=texture_ids.get(0);
+		reflection_mapping_texture_id=texture_ids.get(0);
 		
 		final int TEXTURE_WIDTH=512;
 		final int TEXTURE_HEIGHT=512;
-		GLWrapper.glBindTexture(GL4.GL_TEXTURE_CUBE_MAP, cubemap_texture_id);
+		GLWrapper.glBindTexture(GL4.GL_TEXTURE_CUBE_MAP, reflection_mapping_texture_id);
 		for(int i=0;i<6;i++) {
 			GLWrapper.glTexImage2D(
 					targets[i], 0, GL4.GL_RGBA, TEXTURE_WIDTH, TEXTURE_HEIGHT, 
@@ -78,14 +78,14 @@ class CubemapTestWindow extends JOGLFWindow{
 	}
 	private void SetupProgram() {
 		GLShaderFunctions.CreateProgram(
-				"cubemap", 
-				"./Data/Shader/330/cubemap/vshader.glsl", 
-				"./Data/Shader/330/cubemap/fshader.glsl");
-		program=new ShaderProgram("cubemap");
+				"reflection_mapping", 
+				"./Data/Shader/330/reflection_mapping/vshader.glsl", 
+				"./Data/Shader/330/reflection_mapping/fshader.glsl");
+		program=new ShaderProgram("reflection_mapping");
 		program.Enable();
 		program.SetUniform("apply_texture", 1);
 		
-		CameraFront.AddProgram("cubemap");
+		CameraFront.AddProgram("reflection_mapping");
 		
 		GLShaderFunctions.CreateProgram(
 				"simple_3d", 
@@ -113,9 +113,9 @@ class CubemapTestWindow extends JOGLFWindow{
 	protected void Draw() {
 		program.Enable();
 		GLWrapper.glActiveTexture(GL4.GL_TEXTURE1);
-		GLWrapper.glBindTexture(GL4.GL_TEXTURE_CUBE_MAP, cubemap_texture_id);
+		GLWrapper.glBindTexture(GL4.GL_TEXTURE_CUBE_MAP, reflection_mapping_texture_id);
 		program.SetUniform("cube_texture", 1);
-		Model3D.DrawModelWithProgram(model_handle, "cubemap", 0, "texture_sampler");
+		Model3D.DrawModelWithProgram(model_handle, "reflection_mapping", 0, "texture_sampler");
 		
 		Model3D.DrawModel(skybox_model_handle);
 	}

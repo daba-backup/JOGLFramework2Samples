@@ -1,4 +1,4 @@
-package com.daxie.testspace.joglf.g2.cubemap;
+package com.daxie.testspace.joglf.g2.reflection_mapping;
 
 import com.daxie.joglf.gl.front.GLFront;
 import com.daxie.joglf.gl.window.JOGLFWindow;
@@ -13,7 +13,7 @@ public class Main {
 		LogWriter.SetLogLevelFlags(LogWriter.LOG_LEVEL_ALL);
 		GLFront.Setup(GLVersion.GL4);
 		
-		JOGLFWindow window=new CubemapTestWindow();
+		JOGLFWindow window=new ReflectionMappingTestWindow();
 		window.SetTitle("Test");
 		window.SetExitProcessWhenDestroyed();
 	}
