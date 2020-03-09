@@ -3,9 +3,6 @@ package com.daxie.testspace.joglf.g2.cubemap;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 
-import com.daxie.basis.matrix.Matrix;
-import com.daxie.basis.matrix.MatrixFunctions;
-import com.daxie.basis.vector.Vector;
 import com.daxie.basis.vector.VectorFunctions;
 import com.daxie.joglf.gl.front.CameraFront;
 import com.daxie.joglf.gl.model.Model3D;
@@ -14,7 +11,6 @@ import com.daxie.joglf.gl.shader.ShaderProgram;
 import com.daxie.joglf.gl.texture.TextureMgr;
 import com.daxie.joglf.gl.window.JOGLFWindow;
 import com.daxie.joglf.gl.wrapper.GLWrapper;
-import com.daxie.tool.MathFunctions;
 import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.GL4;
 
@@ -25,15 +21,11 @@ class CubemapTestWindow extends JOGLFWindow{
 	
 	private ShaderProgram program;
 	
-	private Vector camera_position;
-	
 	@Override
 	protected void Init() {
 		this.GenerateCubemap();
 		this.SetupProgram();
 		this.SetupModel();
-		
-		camera_position=VectorFunctions.VGet(30.0f, 30.0f, 30.0f);
 		
 		GLWrapper.glDisable(GL4.GL_CULL_FACE);
 	}
@@ -90,6 +82,9 @@ class CubemapTestWindow extends JOGLFWindow{
 				"./Data/Shader/330/cubemap/vshader.glsl", 
 				"./Data/Shader/330/cubemap/fshader.glsl");
 		program=new ShaderProgram("cubemap");
+		program.Enable();
+		program.SetUniform("apply_texture", 1);
+		
 		CameraFront.AddProgram("cubemap");
 		
 		GLShaderFunctions.CreateProgram(
@@ -109,11 +104,9 @@ class CubemapTestWindow extends JOGLFWindow{
 	
 	@Override
 	protected void Update() {
-		Matrix rot_y=MatrixFunctions.MGetRotY(MathFunctions.DegToRad(0.5f));
-		camera_position=VectorFunctions.VTransform(camera_position, rot_y);
-		
 		CameraFront.SetCameraPositionAndTarget_UpVecY(
-				camera_position, VectorFunctions.VGet(0.0f, 0.0f, 0.0f));
+				VectorFunctions.VGet(40.0f, 40.0f, 40.0f), 
+				VectorFunctions.VGet(0.0f, 0.0f, 0.0f));
 	}
 	
 	@Override

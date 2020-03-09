@@ -12,6 +12,8 @@ in vec3 vs_out_normal;
 uniform sampler2D texture_sampler;
 uniform samplerCube cube_texture;
 
+uniform bool apply_texture;
+
 out vec4 fs_out_color;
 
 vec4 Reflection(){
@@ -24,5 +26,10 @@ vec4 Reflection(){
 
 void main(){
     vec4 env_color=Reflection();
-    fs_out_color=texture(texture_sampler,vs_out_uv)*env_color;
+    if(apply_texture==true){
+        fs_out_color=texture(texture_sampler,vs_out_uv)*env_color;
+    }
+    else{
+        fs_out_color=env_color;
+    }
 }
