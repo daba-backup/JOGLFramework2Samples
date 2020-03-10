@@ -3,6 +3,9 @@ package com.daxie.testspace.joglf.g2.reflection_mapping;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 
+import com.daxie.basis.matrix.Matrix;
+import com.daxie.basis.matrix.MatrixFunctions;
+import com.daxie.basis.vector.Vector;
 import com.daxie.basis.vector.VectorFunctions;
 import com.daxie.joglf.gl.front.CameraFront;
 import com.daxie.joglf.gl.model.Model3D;
@@ -11,6 +14,7 @@ import com.daxie.joglf.gl.shader.ShaderProgram;
 import com.daxie.joglf.gl.texture.TextureMgr;
 import com.daxie.joglf.gl.window.JOGLFWindow;
 import com.daxie.joglf.gl.wrapper.GLWrapper;
+import com.daxie.tool.MathFunctions;
 import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.GL4;
 
@@ -21,12 +25,15 @@ class ReflectionMappingTestWindow extends JOGLFWindow{
 	
 	private ShaderProgram program;
 	
+	private Vector camera_position;
+	
 	@Override
 	protected void Init() {
 		this.GenerateCubemap();
 		this.SetupProgram();
 		this.SetupModel();
 		
+		camera_position=VectorFunctions.VGet(40.0f, 40.0f, 40.0f);
 		GLWrapper.glDisable(GL4.GL_CULL_FACE);
 	}
 	private void GenerateCubemap() {
@@ -37,9 +44,6 @@ class ReflectionMappingTestWindow extends JOGLFWindow{
 		texture_handles[3]=TextureMgr.LoadTexture("./Data/Texture/Skybox/nx.png");
 		texture_handles[4]=TextureMgr.LoadTexture("./Data/Texture/Skybox/ny.png");
 		texture_handles[5]=TextureMgr.LoadTexture("./Data/Texture/Skybox/nz.png");
-		for(int i=0;i<6;i++) {
-			TextureMgr.FlipTexture(texture_handles[i], true, false);
-		}
 		
 		int[] targets=new int[] {
 				GL4.GL_TEXTURE_CUBE_MAP_POSITIVE_X,
@@ -59,8 +63,8 @@ class ReflectionMappingTestWindow extends JOGLFWindow{
 		GLWrapper.glGenTextures(1, texture_ids);
 		reflection_mapping_texture_id=texture_ids.get(0);
 		
-		final int TEXTURE_WIDTH=512;
-		final int TEXTURE_HEIGHT=512;
+		final int TEXTURE_WIDTH=TextureMgr.GetTextureWidth(texture_handles[0]);
+		final int TEXTURE_HEIGHT=TextureMgr.GetTextureHeight(texture_handles[0]);
 		GLWrapper.glBindTexture(GL4.GL_TEXTURE_CUBE_MAP, reflection_mapping_texture_id);
 		for(int i=0;i<6;i++) {
 			GLWrapper.glTexImage2D(
@@ -96,7 +100,7 @@ class ReflectionMappingTestWindow extends JOGLFWindow{
 	private void SetupModel() {
 		model_handle=Model3D.LoadModel("./Data/Model/OBJ/Teapot/teapot.obj");
 		Model3D.TranslateModel(model_handle, VectorFunctions.VGet(0.0f, -10.0f, 0.0f));
-		
+	
 		skybox_model_handle=Model3D.LoadModel("./Data/Model/OBJ/Skybox/skybox.obj");
 		Model3D.RemoveAllPrograms(skybox_model_handle);
 		Model3D.AddProgram(skybox_model_handle, "simple_3d");
@@ -104,9 +108,11 @@ class ReflectionMappingTestWindow extends JOGLFWindow{
 	
 	@Override
 	protected void Update() {
+		Matrix rot_y=MatrixFunctions.MGetRotY(MathFunctions.DegToRad(0.3f));
+		camera_position=VectorFunctions.VTransform(camera_position, rot_y);
+		
 		CameraFront.SetCameraPositionAndTarget_UpVecY(
-				VectorFunctions.VGet(40.0f, 40.0f, 40.0f), 
-				VectorFunctions.VGet(0.0f, 0.0f, 0.0f));
+				camera_position, VectorFunctions.VGet(0.0f, 0.0f, 0.0f));
 	}
 	
 	@Override
