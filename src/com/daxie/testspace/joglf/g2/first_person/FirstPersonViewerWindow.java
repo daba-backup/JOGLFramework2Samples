@@ -60,7 +60,7 @@ class FirstPersonViewerWindow extends JOGLFWindow{
 		
 		//Set up the map.
 		final float MODEL_SCALE=1.7f/20.0f;
-		model_handle=Model3D.LoadModel("./Data/Model/BD1/map2/temp.bd1");
+		model_handle=Model3D.LoadModel("./Data/Model/BD1/XOPS/map0/temp.bd1");
 		Model3D.RescaleModel(model_handle, VectorFunctions.VGet(MODEL_SCALE, MODEL_SCALE, MODEL_SCALE));
 		
 		List<Triangle> faces=Model3D.GetModelFaces(model_handle);

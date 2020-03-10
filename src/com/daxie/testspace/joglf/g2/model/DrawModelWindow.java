@@ -10,7 +10,7 @@ class DrawModelWindow extends JOGLFWindow{
 	
 	@Override
 	protected void Init() {
-		model_handle=Model3D.LoadModel("./Data/Model/BD1/map2/temp.bd1");
+		model_handle=Model3D.LoadModel("./Data/Model/BD1/XOPS/map2/temp.bd1");
 		Model3D.RescaleModel(model_handle, VectorFunctions.VGet(0.1f, 0.1f, 0.1f));
 	}
 	@Override
