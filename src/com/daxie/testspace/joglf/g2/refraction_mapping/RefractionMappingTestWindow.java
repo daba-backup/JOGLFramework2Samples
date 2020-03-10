@@ -1,4 +1,4 @@
-package com.daxie.testspace.joglf.g2.reflection_mapping;
+package com.daxie.testspace.joglf.g2.refraction_mapping;
 
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
@@ -15,8 +15,8 @@ import com.daxie.joglf.gl.wrapper.GLWrapper;
 import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.GL4;
 
-class ReflectionMappingTestWindow extends JOGLFWindow{
-	private int reflection_mapping_texture_id;
+class RefractionMappingTestWindow extends JOGLFWindow{
+	private int refraction_mapping_texture_id;
 	private int model_handle;
 	private int skybox_model_handle;
 	
@@ -59,11 +59,11 @@ class ReflectionMappingTestWindow extends JOGLFWindow{
 		
 		IntBuffer texture_ids=Buffers.newDirectIntBuffer(1);
 		GLWrapper.glGenTextures(1, texture_ids);
-		reflection_mapping_texture_id=texture_ids.get(0);
+		refraction_mapping_texture_id=texture_ids.get(0);
 		
 		final int TEXTURE_WIDTH=TextureMgr.GetTextureWidth(texture_handles[0]);
 		final int TEXTURE_HEIGHT=TextureMgr.GetTextureHeight(texture_handles[0]);
-		GLWrapper.glBindTexture(GL4.GL_TEXTURE_CUBE_MAP, reflection_mapping_texture_id);
+		GLWrapper.glBindTexture(GL4.GL_TEXTURE_CUBE_MAP, refraction_mapping_texture_id);
 		for(int i=0;i<6;i++) {
 			GLWrapper.glTexImage2D(
 					targets[i], 0, GL4.GL_RGBA, TEXTURE_WIDTH, TEXTURE_HEIGHT, 
@@ -80,14 +80,15 @@ class ReflectionMappingTestWindow extends JOGLFWindow{
 	}
 	private void SetupProgram() {
 		GLShaderFunctions.CreateProgram(
-				"reflection_mapping", 
-				"./Data/Shader/330/reflection_mapping/vshader.glsl", 
-				"./Data/Shader/330/reflection_mapping/fshader.glsl");
-		program=new ShaderProgram("reflection_mapping");
+				"refraction_mapping", 
+				"./Data/Shader/330/refraction_mapping/vshader.glsl", 
+				"./Data/Shader/330/refraction_mapping/fshader.glsl");
+		program=new ShaderProgram("refraction_mapping");
 		program.Enable();
 		program.SetUniform("apply_texture", 1);
+		program.SetUniform("eta", 1.0f/1.33f);
 		
-		CameraFront.AddProgram("reflection_mapping");
+		CameraFront.AddProgram("refraction_mapping");
 		
 		GLShaderFunctions.CreateProgram(
 				"simple_3d", 
@@ -117,9 +118,9 @@ class ReflectionMappingTestWindow extends JOGLFWindow{
 	protected void Draw() {
 		program.Enable();
 		GLWrapper.glActiveTexture(GL4.GL_TEXTURE1);
-		GLWrapper.glBindTexture(GL4.GL_TEXTURE_CUBE_MAP, reflection_mapping_texture_id);
+		GLWrapper.glBindTexture(GL4.GL_TEXTURE_CUBE_MAP, refraction_mapping_texture_id);
 		program.SetUniform("cube_texture", 1);
-		Model3D.DrawModelWithProgram(model_handle, "reflection_mapping", 0, "texture_sampler");
+		Model3D.DrawModelWithProgram(model_handle, "refraction_mapping", 0, "texture_sampler");
 		
 		Model3D.DrawModel(skybox_model_handle);
 	}

@@ -1,4 +1,4 @@
-package com.daxie.testspace.joglf.g2.reflection_mapping;
+package com.daxie.testspace.joglf.g2.refraction_mapping;
 
 import com.daxie.joglf.gl.front.GLFront;
 import com.daxie.joglf.gl.window.JOGLFWindow;
@@ -13,8 +13,8 @@ public class Main {
 		LogWriter.SetLogLevelFlags(LogWriter.LOG_LEVEL_ALL);
 		GLFront.Setup(GLVersion.GL4);
 		
-		JOGLFWindow window=new ReflectionMappingTestWindow();
-		window.SetTitle("Reflection Mapping");
+		JOGLFWindow window=new RefractionMappingTestWindow();
+		window.SetTitle("Refraction Mapping");
 		window.SetExitProcessWhenDestroyed();
 	}
 }
